@@ -11,9 +11,9 @@ namespace MultiChatClient {
         delegate void AppendTextDelegate(Control ctrl, string s);
         AppendTextDelegate _textAppender;
         public Socket mainSock;
-        Protocal protocal = new Protocal();
+
+        Protocal protocal = new Protocal(); //프로토콜 선언
         byte[] move_receive = new byte[2];  //무브에 사용
-        bool when_move;
 
         public ChatForm() {
             InitializeComponent();
@@ -98,8 +98,6 @@ namespace MultiChatClient {
             {
                 move_receive[0] = obj.Buffer[2];
                 move_receive[1] = obj.Buffer[3]; //Position 2바이트때 사용
-                Console.WriteLine(move_receive[0]);
-                Console.WriteLine(move_receive[1]);
             }
 
             // 텍스트로 변환한다.
@@ -147,7 +145,7 @@ namespace MultiChatClient {
             string addr = ip.Address.ToString();
 
             //head_format 초기 선언
-            protocal.head_format();
+            protocal.Head_head_format();
 
             // datasize 8의배수 계산
             UInt16 ttx_size = (UInt16)((((tts.Length - 1) / 8) + 1) * 8);
@@ -184,7 +182,7 @@ namespace MultiChatClient {
         private void button1_Click(object sender, EventArgs e)
         {
             txtSTT.Clear();
-            protocal.head_format();
+            protocal.Head_head_format();
             protocal.Make_ByteArray();
             // 문자열을 utf8 형식의 바이트로 변환한다.
             byte[] bDts = protocal.byteArray;
@@ -200,7 +198,7 @@ namespace MultiChatClient {
         private void button2_Click(object sender, EventArgs e)
         {
             txtSTT.Clear();
-            protocal.keepAlive();
+            protocal.Head_keepAlive();
             // 문자열을 utf8 형식의 바이트로 변환한다.
             byte[] bDts = protocal.byteArray;
 
@@ -215,7 +213,7 @@ namespace MultiChatClient {
         private void button3_Click(object sender, EventArgs e)
         {
             txtSTT.Clear();
-            protocal.Req_status();
+            protocal.Head_Req_status();
             // 문자열을 utf8 형식의 바이트로 변환한다.
             byte[] bDts = protocal.byteArray;
 
@@ -230,7 +228,7 @@ namespace MultiChatClient {
         private void button4_Click(object sender, EventArgs e)
         {
             txtSTT.Clear();
-            protocal.Homing();
+            protocal.Head_Homing();
             // 문자열을 utf8 형식의 바이트로 변환한다.
             byte[] bDts = protocal.byteArray;
 
@@ -245,12 +243,14 @@ namespace MultiChatClient {
         private void button5_Click(object sender, EventArgs e)
         {
             txtSTT.Clear();
-            protocal.Move();
+            protocal.Head_Move();
+            byte[] move_data = move();
             // 문자열을 utf8 형식의 바이트로 변환한다.
             byte[] bDts = protocal.byteArray;
 
             // 서버에 전송한다.
             mainSock.Send(bDts);
+            mainSock.Send(move_data);
 
             // 전송 완료 후 텍스트박스에 추가하고, 원래의 내용은 지운다.
             AppendText(txtSTT, string.Format("Move 보냄"));
@@ -260,7 +260,7 @@ namespace MultiChatClient {
         private void button6_Click(object sender, EventArgs e)
         {
             txtSTT.Clear();
-            protocal.Alarm();
+            protocal.Head_Alarm();
             // 문자열을 utf8 형식의 바이트로 변환한다.
             byte[] bDts = protocal.byteArray;
 
@@ -330,7 +330,7 @@ namespace MultiChatClient {
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             txtSTT.Clear();
-            protocal.Req_status();
+            protocal.Head_Req_status();
             // 문자열을 utf8 형식의 바이트로 변환한다.
             byte[] bDts = protocal.byteArray;
 
@@ -341,31 +341,52 @@ namespace MultiChatClient {
             AppendText(txtSTT, string.Format("Req_status 보냄"));
             txtTTS.Clear();
 
+
+            textBox1.Text = BitConverter.ToUInt16(move_receive, 0).ToString();
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            txtSTT.Clear();
-            protocal.Req_status();
-            // 문자열을 utf8 형식의 바이트로 변환한다.
-            byte[] bDts = protocal.byteArray;
-
-            // 서버에 전송한다.
-            mainSock.Send(bDts);
-
-            // 전송 완료 후 텍스트박스에 추가하고, 원래의 내용은 지운다.
-            AppendText(txtSTT, string.Format("Req_status 보냄"));
-            txtTTS.Clear();
-
-
-            textBox1.Text = BitConverter.ToInt16(move_receive, 0).ToString();
 
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
+        private byte[] move() //move 초기화 , byte[] result로 만들기
+        {
+            protocal.initMove();
+            //protocal.Position_byte = move_receive;
+
+
+            if (radioButton1.Checked)
+            {
+                //예외처리 예정
+                Int16 value = Convert.ToInt16(textBox2.Text);
+                int add = value + BitConverter.ToUInt16(move_receive, 0);
+                byte[] write = BitConverter.GetBytes((UInt16)add);
+                protocal.Position_byte = write;
+            }
+
+            else if(radioButton2.Checked)
+            {
+                UInt16 value = Convert.ToUInt16(textBox2.Text);
+                byte[] write = BitConverter.GetBytes(value);
+                protocal.Position_byte = write;
+            }
+            
+            byte[] result= protocal.Position_byteArray;
+            System.Buffer.BlockCopy(protocal.Reservem0_byte, 0, result, 0, protocal.Reservem0_byte.Length);
+            System.Buffer.BlockCopy(protocal.Position_byte, 0, result, 2, protocal.Position_byte.Length);
+            System.Buffer.BlockCopy(protocal.Reservem1_byte, 0, result, 4, protocal.Reservem0_byte.Length);
+            return result;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

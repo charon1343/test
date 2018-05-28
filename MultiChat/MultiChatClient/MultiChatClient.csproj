@@ -61,8 +61,6 @@
     <Compile Include="ChatForm.Designer.cs">
       <DependentUpon>ChatForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="IToByteArray1.cs" />
-    <Compile Include="ToByteArray.cs" />
     <Compile Include="Protocal.cs" />
     <Compile Include="MsgBoxHelper.cs" />
     <Compile Include="Program.cs" />

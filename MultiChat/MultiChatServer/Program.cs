@@ -158,7 +158,7 @@ namespace MultiChatServer
         {
             MovementFlag = 0;
             HomingFlag = 1;
-            Position = 30000;
+            Position = 60000;
             AlarmNumber = 0;
             Reserveb0 = 0;
             Reserve0 = 0;

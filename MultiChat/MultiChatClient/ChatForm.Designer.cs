@@ -45,6 +45,9 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.tblMainLayout.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -179,9 +182,12 @@
             this.tblMainLayout.Controls.Add(this.txtTTS, 1, 2);
             this.tblMainLayout.Controls.Add(this.txtSTT, 1, 3);
             this.tblMainLayout.Controls.Add(this.txtAddress, 1, 0);
-            this.tblMainLayout.Controls.Add(this.radioButton1, 0, 4);
-            this.tblMainLayout.Controls.Add(this.radioButton2, 0, 5);
-            this.tblMainLayout.Controls.Add(this.textBox1, 1, 5);
+            this.tblMainLayout.Controls.Add(this.textBox1, 1, 4);
+            this.tblMainLayout.Controls.Add(this.textBox2, 1, 5);
+            this.tblMainLayout.Controls.Add(this.radioButton1, 2, 4);
+            this.tblMainLayout.Controls.Add(this.radioButton2, 2, 5);
+            this.tblMainLayout.Controls.Add(this.label3, 0, 5);
+            this.tblMainLayout.Controls.Add(this.label2, 0, 4);
             this.tblMainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMainLayout.Location = new System.Drawing.Point(0, 0);
             this.tblMainLayout.Name = "tblMainLayout";
@@ -302,7 +308,7 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(11, 461);
+            this.radioButton1.Location = new System.Drawing.Point(385, 461);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(90, 29);
             this.radioButton1.TabIndex = 18;
@@ -314,7 +320,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(11, 500);
+            this.radioButton2.Location = new System.Drawing.Point(385, 500);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(90, 29);
             this.radioButton2.TabIndex = 19;
@@ -325,11 +331,39 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(129, 500);
+            this.textBox1.Location = new System.Drawing.Point(129, 461);
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(157, 32);
             this.textBox1.TabIndex = 20;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(129, 500);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(157, 32);
+            this.textBox2.TabIndex = 21;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(11, 458);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(88, 25);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "현재위치";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Location = new System.Drawing.Point(11, 497);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(112, 38);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "위치이동값";
             // 
             // ChatForm
             // 
@@ -371,6 +405,9 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
 
