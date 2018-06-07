@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define AUTO_ADDRESS
+
+using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -23,6 +25,8 @@ namespace Autopocusing
         IStImage stImage;
         Bitmap map;
         bool stop = false;
+        bool deviceisrun;
+        bool sttclear;
 
         CStApiAutoInit api;
         CStSystem system;
@@ -40,7 +44,9 @@ namespace Autopocusing
         Protocal protocal = new Protocal(); //프로토콜 선언
         public byte[] receive_data;                //수신데이터 불안정한지 확인필요
         public byte[] position = new byte[2];      //임시
-        
+
+        delegate void recieve_try(Control ctl, String text);    //임시 확인
+
         public Form1()
         {
             InitializeComponent();
@@ -86,6 +92,7 @@ namespace Autopocusing
             system = new CStSystem(eStSystemVendor.Sentech);
             device = system.CreateFirstStDevice();
             dataStream = device.CreateStDataStream(0);
+            deviceisrun = true;
 
             dataStream.RegisterCallbackMethod(OnCallback);
         }
@@ -101,21 +108,26 @@ namespace Autopocusing
         //callback stop
         public void stop1()
         {
-
+            if(deviceisrun == true)
+            {
             device.AcquisitionStop();
 
             dataStream.StopAcquisition();
-
+            }
+            deviceisrun = false;
 
         }
 
         //callback drop
         public void dispose()
         {
-            dataStream.Dispose();
-            device.Dispose();
-            system.Dispose();
-            api.Dispose();
+            if (dataStream != null)
+            {
+                dataStream.Dispose();
+                device.Dispose();
+                system.Dispose();
+                api.Dispose();
+            }
         }
 
         //thread function
@@ -150,33 +162,35 @@ namespace Autopocusing
         //주소로드
         void OnFormLoaded(object sender, EventArgs e)
         {
-            //IPHostEntry he = Dns.GetHostEntry(Dns.GetHostName());
+#if AUTO_ADDRESS
+            IPHostEntry he = Dns.GetHostEntry(Dns.GetHostName());
 
-            //// 처음으로 발견되는 ipv4 주소를 사용한다.
-            //IPAddress defaultHostAddress = null;
-            //foreach (IPAddress addr in he.AddressList)
-            //{
-            //    if (addr.AddressFamily == AddressFamily.InterNetwork)
-            //    {
-            //        defaultHostAddress = addr;
-            //        break;
-            //    }
-            //}
+            // 처음으로 발견되는 ipv4 주소를 사용한다.
+            IPAddress defaultHostAddress = null;
+            foreach (IPAddress addr in he.AddressList)
+            {
+                if (addr.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    defaultHostAddress = addr;
+                    break;
+                }
+            }
 
-            //// 주소가 없다면..
-            //if (defaultHostAddress == null)
-            //    // 로컬호스트 주소를 사용한다.
-            //    defaultHostAddress = IPAddress.Loopback;
+            // 주소가 없다면..
+            if (defaultHostAddress == null)
+                // 로컬호스트 주소를 사용한다.
+                defaultHostAddress = IPAddress.Loopback;
 
-            //txtAddress.Text = defaultHostAddress.ToString();
+            txtAddress.Text = defaultHostAddress.ToString();
+
+#endif
 
             initbutton();
             initmgsbutton();
 
         }
 
-        //서버연결
-        void OnConnectToServer(object sender, EventArgs e)
+        void onserver()
         {
             mainSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);  //재연결에 사용
             _textAppender = new AppendTextDelegate(AppendText); //재연결에 사용
@@ -204,14 +218,18 @@ namespace Autopocusing
             }
             AppendText(txtHistory, "서버와 연결되었습니다.");
 
-            
+
 
             AsyncObject obj = new AsyncObject(16);
             obj.WorkingSocket = mainSock;
             mainSock.BeginReceive(obj.Buffer, 0, obj.BufferSize, 0, DataReceived, obj);
 
             connectable();
-
+        }
+        //서버연결
+        void OnConnectToServer(object sender, EventArgs e)
+        {
+            onserver();
         }
 
         //데이터받기
@@ -236,7 +254,7 @@ namespace Autopocusing
             string msg = ASCIIToHex(msg1);
 
             // 텍스트박스에 추가해준다. 로그로 대체
-            //AppendText(txtHistory, string.Format(msg));
+            AppendText(txtHistory, string.Format(msg));
 
             using (StreamWriter w = File.AppendText("log.txt"))
             {
@@ -254,12 +272,24 @@ namespace Autopocusing
                 position[0] = receive_data[2];
                 position[1] = receive_data[3]; //Position 2바이트때 사용
                 protocal.Position_byte = position;
-                current_Position.Text = BitConverter.ToUInt16(protocal.Position_byte, 0).ToString();
+                recieve_try1(current_Position,BitConverter.ToUInt16(protocal.Position_byte, 0).ToString());
                 //position_clickable();
+            }
+            if (obj.Buffer[8] == 61)
+            {
+                req_status();
             }
 
         }
-        
+
+        private void recieve_try1(Control ctl, String text) //thread 예외처리
+        {
+            if (ctl.InvokeRequired)
+                ctl.Invoke(new recieve_try(recieve_try1), ctl, text);
+            else
+                ctl.Text = text;
+        }
+
         //아스키코드 to Hex
         string ASCIIToHex(string msg1)
         {
@@ -377,7 +407,7 @@ namespace Autopocusing
             AppendText(txtSTT, string.Format("Req_status 보냄"));
             txtTTS.Clear();
         }
-
+        
         void homing()
         {
             txtSTT.Clear();
@@ -519,6 +549,7 @@ namespace Autopocusing
 
         private void glControl1_Paint(object sender, PaintEventArgs e)
         {
+            //Console.WriteLine("drawing...");
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             Matrix4 modelview = Matrix4.LookAt(Vector3.Zero, Vector3.UnitZ, Vector3.UnitY);
@@ -551,6 +582,7 @@ namespace Autopocusing
         {
             start_btn.Enabled = true;
             init_btn.Enabled = false;
+            auto_btn.Enabled = false;
         }
         public void startable()
         {
@@ -585,19 +617,25 @@ namespace Autopocusing
             alarm_btn.Enabled = false;
             forwardstep.Enabled = false;
             backstep.Enabled = false;
+            chang_Position.Enabled = false;
+
         }
         public void connectable()
         {
             btnConnect.Enabled = false;
             close_btn.Enabled = true;
             btnSend.Enabled = true;
+            homing_btn.Enabled = true;
+        }
+
+        public void homingable()
+        {
             head_format_btn.Enabled = true;
             keep_alive_btn.Enabled = true;
             req_status_btn.Enabled = true;
-            homing_btn.Enabled = true;
             alarm_btn.Enabled = true;
+            chang_Position.Enabled = true;
         }
-
         public void position_clickable()
         {
             move_btn.Enabled = true;
@@ -656,14 +694,7 @@ namespace Autopocusing
         //multichat design
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            try
-            {
-                mainSock.Disconnect(true);
-            }
-            catch
-            {
-
-            }
+                mainSock.Disconnect(false);
         }
 
         private void txtHistory_TextChanged(object sender, EventArgs e)
@@ -690,6 +721,7 @@ namespace Autopocusing
 
         private void homing_btn_Click(object sender, EventArgs e)
         {
+            homingable();
             homing();
         }
 
@@ -735,18 +767,39 @@ namespace Autopocusing
         private void close_btn_Click(object sender, EventArgs e)
         {
             initmgsbutton();
-            try
-            {
-                mainSock.Disconnect(true);
+                mainSock.Disconnect(false);
                 initbutton();
                 stop = true;
                 stop1();
                 dispose();
-            }
-            catch
-            {
+            
+        }
 
+        private void auto_btn_Click(object sender, EventArgs e)
+        {
+            onserver();
+            System.Threading.Thread.Sleep(1000);
+            image_init();
+            System.Threading.Thread.Sleep(1000);
+            start();
+            System.Threading.Thread.Sleep(1000);
+            liveable();
+            stop = false;
+            th2 = new Thread(new ThreadStart(myThread2));
+            th2.Start();
+            System.Threading.Thread.Sleep(3000);
+            {//homing 버튼
+                homingable();
+                homing();
             }
+            init_btn.Enabled = false;
+            stop_btn.Enabled = true;
+            auto_btn.Enabled = false;
+        }
+
+        private void txtAddress_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
