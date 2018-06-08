@@ -8,7 +8,6 @@ using System.Text;
 using System.IO;
 
 using Sentech.StApiDotNET;
-using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
 using System.Net;
@@ -19,38 +18,48 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Autopocusing
 {
+    enum AFMsg
+    {
+        Msg_KeepAlive = 0,
+        Msg_ReqStatus = 10,
+        Msg_Homing = 50,
+        Msg_HomingDone = 51,
+        Msg_Move = 60,
+        Msg_MoveDone = 61,
+        Msg_Alarm = 255,
+
+    }
     public partial class Form1 : Form
     {
         //image header
         IStImage stImage;
         Bitmap map;
-        bool stop = false;
-        bool deviceisrun;
-        bool sttclear;
 
         CStApiAutoInit api;
         CStSystem system;
         CStDevice device;
         CStDataStream dataStream;
 
-        Thread th2;
-        private delegate void myDelegate2();
+        Thread Image_thread;
+        delegate void Image_Delegate();
+        bool threadStop;
+        bool threadisrun;
 
         //multichat header
+        //delegate void OtherThread(Control ctrl);
         delegate void AppendTextDelegate(Control ctrl, string s);
         AppendTextDelegate _textAppender;
-        public Socket mainSock;
 
-        Protocal protocal = new Protocal(); //프로토콜 선언
-        public byte[] receive_data;                //수신데이터 불안정한지 확인필요
-        public byte[] position = new byte[2];      //임시
+        Socket mainSock;
 
-        delegate void recieve_try(Control ctl, String text);    //임시 확인
+        static byte[] socket_ReceiveData;
+        //public byte[] position = new byte[2];
+
+        Protocal protocal = new Protocal();
 
         public Form1()
         {
             InitializeComponent();
-            
         }
 
 
@@ -58,7 +67,6 @@ namespace Autopocusing
         //callback function continuously image making
         public void OnCallback(IStCallbackParamBase paramBase, object[] param)
         {
-
             if (paramBase.CallbackType == eStCallbackType.TL_DataStreamNewBuffer)
             {
                 IStCallbackParamGenTLEventNewBuffer callbackParam = paramBase as IStCallbackParamGenTLEventNewBuffer;
@@ -78,7 +86,7 @@ namespace Autopocusing
 
                             byte[] imageData = stImage.GetByteArray();
 
-                            map = new Bitmap((int)stImage.ImageWidth, (int)stImage.ImageHeight,(int)stImage.ImageWidth, System.Drawing.Imaging.PixelFormat.Format24bppRgb, Marshal.UnsafeAddrOfPinnedArrayElement(stImage.GetByteArray(), 0));
+                            map = new Bitmap((int)stImage.ImageWidth, (int)stImage.ImageHeight, (int)stImage.ImageWidth, System.Drawing.Imaging.PixelFormat.Format24bppRgb, Marshal.UnsafeAddrOfPinnedArrayElement(stImage.GetByteArray(), 0));
                         }
                     }
                 }
@@ -86,19 +94,19 @@ namespace Autopocusing
         }
 
         //image ready callback
-        public void image_init()
+        public void Image_Init()
         {
+
             api = new CStApiAutoInit();
             system = new CStSystem(eStSystemVendor.Sentech);
             device = system.CreateFirstStDevice();
             dataStream = device.CreateStDataStream(0);
-            deviceisrun = true;
 
             dataStream.RegisterCallbackMethod(OnCallback);
         }
 
-       //callback start
-        public void start()
+        //callback start
+        public void Image_Start()
         {
             dataStream.StartAcquisition();
 
@@ -106,20 +114,19 @@ namespace Autopocusing
         }
 
         //callback stop
-        public void stop1()
+        public void Image_Stop()
         {
-            if(deviceisrun == true)
+            if (device != null&& threadisrun)   //미접속 및 2중dispose 방지
             {
-            device.AcquisitionStop();
-
-            dataStream.StopAcquisition();
+                device.AcquisitionStop();
+                
+                dataStream.StopAcquisition();
             }
-            deviceisrun = false;
 
         }
 
         //callback drop
-        public void dispose()
+        public void Image_Dispose()
         {
             if (dataStream != null)
             {
@@ -131,23 +138,27 @@ namespace Autopocusing
         }
 
         //thread function
-        private void updateProgress2()
+        private void Image_ThreadFunction()
         {
             pictureBox1.Image = map;
         }
 
         //thread delegate
-        private void myThread2()
+        private void Image_myThread()
         {
             while (true)
             {
-                if (stop == false)
-                    this.Invoke(new myDelegate2(updateProgress2));
+                if (threadStop == false)
+                {
+                    this.Invoke(new Image_Delegate(Image_ThreadFunction));
+                    threadisrun = true;
+                }
                 else
                     break;
             }
-            th2.Abort();
+            Image_thread.Abort();
         }
+
         //multichat function
         void AppendText(Control ctrl, string s)
         {
@@ -158,6 +169,20 @@ namespace Autopocusing
                 ctrl.Text = source + Environment.NewLine + s;
             }
         }
+        //socket_recieve_try1(current_Position,BitConverter.ToUInt16(protocal.Position_byte, 0).ToString());
+        //void txtSTTClear(Control ctrl) //thread 예외처리
+        //{
+        //    if (ctrl.InvokeRequired)
+        //    {
+        //        ctrl.Invoke(new OtherThread(txtSTTClear), ctrl);
+        //        txtSTT.Clear();
+        //    }
+        //    else
+        //    {
+        //        txtSTT.Clear();
+        //    }
+
+        //}
 
         //주소로드
         void OnFormLoaded(object sender, EventArgs e)
@@ -184,17 +209,21 @@ namespace Autopocusing
             txtAddress.Text = defaultHostAddress.ToString();
 
 #endif
-
-            initbutton();
-            initmgsbutton();
+            //button select
+            Button_InitImage();
+            Button_InitMgs();
 
         }
 
-        void onserver()
+        //서버연결
+        void OnConnectToServer(object sender, EventArgs e)
         {
-            mainSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);  //재연결에 사용
-            _textAppender = new AppendTextDelegate(AppendText); //재연결에 사용
-
+            OnServer();
+        }
+        void OnServer()
+        {
+            mainSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+            _textAppender = new AppendTextDelegate(AppendText);
             if (mainSock.Connected)
             {
                 MsgBoxHelper.Error("이미 연결되어 있습니다!");
@@ -220,17 +249,13 @@ namespace Autopocusing
 
 
 
-            AsyncObject obj = new AsyncObject(16);
+            AsyncObject obj = new AsyncObject(32);
             obj.WorkingSocket = mainSock;
             mainSock.BeginReceive(obj.Buffer, 0, obj.BufferSize, 0, DataReceived, obj);
 
-            connectable();
+            Button_Connect();
         }
-        //서버연결
-        void OnConnectToServer(object sender, EventArgs e)
-        {
-            onserver();
-        }
+
 
         //데이터받기
         void DataReceived(IAsyncResult ar)
@@ -245,50 +270,72 @@ namespace Autopocusing
                 return;
             }
 
-            receive_data = obj.Buffer; //받은 데이터 사용
+            socket_ReceiveData = obj.Buffer; //받은 데이터 사용
+
             // 텍스트로 변환한다.
-            string msg1 = Encoding.UTF7.GetString(obj.Buffer);
+            string socket_ASCII = Encoding.UTF7.GetString(obj.Buffer);
 
 
             //ASCII to hex변환된 메세지
-            string msg = ASCIIToHex(msg1);
+            string socket_Hex = ASCIIToHex(socket_ASCII);
 
             // 텍스트박스에 추가해준다. 로그로 대체
-            AppendText(txtHistory, string.Format(msg));
+            //AppendText(txtHistory, string.Format(socket_Hex));
 
             using (StreamWriter w = File.AppendText("log.txt"))
             {
-                Log(msg, w);
+                Log(socket_Hex, w);
             }
+            if (socket_ReceiveData[0] == 77)
+                switch (socket_ReceiveData[8])
+                {
+                    case (int)AFMsg.Msg_KeepAlive:
+                        AppendText(txtHistory, string.Format("KeepAlive받음"));
+                        break;
+                    case (int)AFMsg.Msg_ReqStatus:
+                        AppendText(txtHistory, string.Format("ReqStatus받음"));
+                        protocal.Position_byte[0] = socket_ReceiveData[10];
+                        protocal.Position_byte[1] = socket_ReceiveData[11];
+                        break;
+                    case (int)AFMsg.Msg_Homing:
+                        AppendText(txtHistory, string.Format("Homing받음"));
+                        break;
+                    case (int)AFMsg.Msg_HomingDone:
+                        AppendText(txtHistory, string.Format("HomingDone받음"));
+                        break;
+                    case (int)AFMsg.Msg_Move:
+                        AppendText(txtHistory, string.Format("Move받음"));
+                        break;
+                    case (int)AFMsg.Msg_MoveDone:
+                        AppendText(txtHistory, string.Format("MoveDone받음"));
+                        protocal.Position_byte[0] = socket_ReceiveData[10];
+                        protocal.Position_byte[1] = socket_ReceiveData[11];
+                        break;
+                    case (int)AFMsg.Msg_Alarm:
+                        AppendText(txtHistory, string.Format("Alarm받음"));
+                        break;
+                    case 11:
+                        AppendText(txtHistory, string.Format("Miss ReqStatus받음"));
+                            protocal.Position_byte[0] = socket_ReceiveData[10];
+                            protocal.Position_byte[1] = socket_ReceiveData[11];
+                        break;
+                    default:
+                        AppendText(txtHistory, string.Format("default"));
+                        break;
+                }
+            else
+            {
 
+            }
             // 데이터를 받은 후엔 다시 버퍼를 비워주고 같은 방법으로 수신을 대기한다.
             obj.ClearBuffer();
 
             // 수신 대기
-            obj.WorkingSocket.BeginReceive(obj.Buffer, 0, 16, 0, DataReceived, obj);
-            //임시
-            if (obj.Buffer[1] == 1)
-            {
-                position[0] = receive_data[2];
-                position[1] = receive_data[3]; //Position 2바이트때 사용
-                protocal.Position_byte = position;
-                recieve_try1(current_Position,BitConverter.ToUInt16(protocal.Position_byte, 0).ToString());
-                //position_clickable();
-            }
-            if (obj.Buffer[8] == 61)
-            {
-                req_status();
-            }
+            obj.WorkingSocket.BeginReceive(obj.Buffer, 0, 32, 0, DataReceived, obj);
+
 
         }
-
-        private void recieve_try1(Control ctl, String text) //thread 예외처리
-        {
-            if (ctl.InvokeRequired)
-                ctl.Invoke(new recieve_try(recieve_try1), ctl, text);
-            else
-                ctl.Text = text;
-        }
+        
 
         //아스키코드 to Hex
         string ASCIIToHex(string msg1)
@@ -304,6 +351,9 @@ namespace Autopocusing
             return text;
         }
 
+
+
+
         //데이터 보내기
         void OnSendData(object sender, EventArgs e)
         {
@@ -314,7 +364,7 @@ namespace Autopocusing
             }
 
 
-            string tts = txtTTS.Text.Trim();
+            string tts = txtTTS.Text.Trim();    //메세지 내용
             if (string.IsNullOrEmpty(tts))
             {
                 MsgBoxHelper.Warn("텍스트가 입력되지 않았습니다!");
@@ -324,30 +374,36 @@ namespace Autopocusing
 
             // 서버 ip 주소와 메세지를 담도록 만든다.
             IPEndPoint ip = (IPEndPoint)mainSock.LocalEndPoint;
-            string addr = ip.Address.ToString();
 
+            //헤더만들기
+            socket_HeadFormat();
+
+            // 해더와 텍스트를 붙인다
+            byte[] socket_DataSend = socket_HeaderPlusText(tts);
+            // 서버에 전송한다.
+            mainSock.Send(socket_DataSend);
+
+            // 전송 완료 후 텍스트박스에 추가하고, 원래의 내용은 지운다.
+            txtSTT.Clear();
+            AppendText(txtHistory, string.Format("[보냄]:{0}", tts));
+            txtTTS.Clear();
+        }
+
+        //헤더만들기
+        void socket_HeadFormat()
+        {
             //head_format 초기 선언
             protocal.Head_head_format();
 
             //datasize 8의배수로 맞춤
-            datasize_change(tts);
+            socket_DatasizeChange(txtTTS.Text.Trim());
 
             // head_format를 byteArray로 변환
             protocal.header_Make_ByteArray();
-
-            // 해더와 텍스트를 붙인다
-            byte[] bDts = headerplugtext(tts);
-            // 서버에 전송한다.
-            mainSock.Send(bDts);
-
-            // 전송 완료 후 텍스트박스에 추가하고, 원래의 내용은 지운다.
-            txtSTT.Clear();
-            AppendText(txtSTT, string.Format("[보냄]{0}: {1}", addr, tts));
-            txtTTS.Clear();
         }
 
         //datasize 8의배수로 맞춤
-        void datasize_change(string tts)
+        void socket_DatasizeChange(string tts)
         {
             // datasize 8의배수 계산
             UInt16 ttx_size = (UInt16)((((tts.Length - 1) / 8) + 1) * 8);
@@ -357,102 +413,107 @@ namespace Autopocusing
         }
 
         //해더와 데이터 합치기
-        byte[] headerplugtext(string tts)
+        byte[] socket_HeaderPlusText(string tts)
         {
-            byte[] byteArray_rcv = protocal.byteArray;
-            byte[] tts_rcv = Encoding.UTF8.GetBytes(tts);
-            byte[] bDts = new byte[tts_rcv.Length + byteArray_rcv.Length];
-            System.Buffer.BlockCopy(byteArray_rcv, 0, bDts, 0, byteArray_rcv.Length);
-            System.Buffer.BlockCopy(tts_rcv, 0, bDts, byteArray_rcv.Length, tts_rcv.Length);
-            return bDts;
+            byte[] headerByte = protocal.byteArray;
+            byte[] ttsByte = Encoding.UTF8.GetBytes(tts);
+            byte[] socket_SendData = new byte[ttsByte.Length + headerByte.Length];
+            System.Buffer.BlockCopy(headerByte, 0, socket_SendData, 0, headerByte.Length);
+            System.Buffer.BlockCopy(ttsByte, 0, socket_SendData, headerByte.Length, ttsByte.Length);
+            return socket_SendData;
         }
 
         //head_format function
         void head_format()
         {
-            txtSTT.Clear();
             protocal.Head_head_format();
-            byte[] bDts = protocal.byteArray;
+            byte[] socket_SendData = protocal.byteArray;
 
             // 서버에 전송한다.
-            mainSock.Send(bDts);
+            mainSock.Send(socket_SendData);
 
+
+            if (txtSTT.Text != "")
+                txtSTT.Clear();
             AppendText(txtSTT, string.Format("header 보냄"));
-            txtTTS.Clear();
         }
 
         //keep_alive function
         void keep_alive()
         {
-            txtSTT.Clear();
             protocal.Head_keepAlive();
-            byte[] bDts = protocal.byteArray;
+            byte[] socket_SendData = protocal.byteArray;
 
             // 서버에 전송한다.
-            mainSock.Send(bDts);
+            mainSock.Send(socket_SendData);
 
+            if (txtSTT.Text != "")
+                txtSTT.Clear();
             AppendText(txtSTT, string.Format("keepAlive 보냄"));
-            txtTTS.Clear();
         }
 
         void req_status()
         {
-            txtSTT.Clear();
             protocal.Head_Req_status();
-            byte[] bDts = protocal.byteArray;
+            byte[] socket_SendData = protocal.byteArray;
 
             // 서버에 전송한다.
-            mainSock.Send(bDts);
+            mainSock.Send(socket_SendData);
 
+
+            if (txtSTT.Text != "")
+                txtSTT.Clear();
             AppendText(txtSTT, string.Format("Req_status 보냄"));
-            txtTTS.Clear();
         }
-        
+
         void homing()
         {
-            txtSTT.Clear();
             protocal.Head_Homing();
-            byte[] bDts = protocal.byteArray;
+            byte[] socket_SendData = protocal.byteArray;
 
             // 서버에 전송한다.
-            mainSock.Send(bDts);
+            mainSock.Send(socket_SendData);
 
+            protocal.Position_byte[0] = 0;
+            protocal.Position_byte[1] = 0;
+
+            current_Position.Text = BitConverter.ToUInt16(protocal.Position_byte, 0).ToString();    //이동위치 출력
+
+            if (txtSTT.Text != "")
+                txtSTT.Clear();
             AppendText(txtSTT, string.Format("Homing 보냄"));
-            txtTTS.Clear();
         }
 
         void move()
         {
-            req_status();
-
-            byte[] headermovedata;
-            txtSTT.Clear();
+            byte[] socket_MoveData;
             protocal.Head_Move();
             protocal.move_Position();
             textmovedata();
             makemovedata();
-            headermovedata = headerplusmovedata();
+            socket_MoveData = headerplusmovedata();
 
-            mainSock.Send(headermovedata);
+            mainSock.Send(socket_MoveData);
 
-            // 전송 완료 후 텍스트박스에 추가하고, 원래의 내용은 지운다.
+            current_Position.Text = BitConverter.ToUInt16(protocal.Position_byte, 0).ToString();    //이동위치 출력
+
+            if (txtSTT.Text != "")
+                txtSTT.Clear();
             AppendText(txtSTT, string.Format("Move 보냄"));
-            txtTTS.Clear();
 
-            current_Position.Text = BitConverter.ToUInt16(protocal.Position_byte, 0).ToString();
         }
         //text를 position에 입력
         void textmovedata()
         {
-        UInt16 value = Convert.ToUInt16(chang_Position.Text);
-        byte[] write = BitConverter.GetBytes(value);
-        protocal.Position_byte = write;
+            UInt16 value = Convert.ToUInt16(chang_Position.Text);
+            byte[] write = BitConverter.GetBytes(value);
+            protocal.Position_byte = write;
         }
 
         //movedata 만들기
         void makemovedata()
         {
-            byte[] result = new byte[protocal.Reserve_m0_byte.Length+ protocal.Position_byte.Length+ protocal.Reserve_m0_byte.Length];
+            byte[] result = new byte[protocal.Reserve_m0_byte.Length + protocal.Position_byte.Length + protocal.Reserve_m0_byte.Length];
             System.Buffer.BlockCopy(protocal.Reserve_m0_byte, 0, result, 0, protocal.Reserve_m0_byte.Length);
             System.Buffer.BlockCopy(protocal.Position_byte, 0, result, 2, protocal.Position_byte.Length);
             System.Buffer.BlockCopy(protocal.Reserve_m1_byte, 0, result, 4, protocal.Reserve_m0_byte.Length);
@@ -462,7 +523,7 @@ namespace Autopocusing
         //header와 movedata 합치기
         byte[] headerplusmovedata()
         {
-            byte[] result = new byte[protocal.byteArray.Length+ protocal.move_byteArray.Length];
+            byte[] result = new byte[protocal.byteArray.Length + protocal.move_byteArray.Length];
             System.Buffer.BlockCopy(protocal.byteArray, 0, result, 0, protocal.byteArray.Length);
             System.Buffer.BlockCopy(protocal.move_byteArray, 0, result, protocal.byteArray.Length, protocal.move_byteArray.Length);
             return result;
@@ -470,41 +531,56 @@ namespace Autopocusing
 
         void move_forwardstep()
         {
-            req_status();                       //연속해서 하려면 move_done신호가 필요함   
+            {
+                byte[] headermovedata;
+                protocal.Head_Move();
+                protocal.move_Position();
+                protocal.Position_byte[0] = socket_ReceiveData[18];
+                protocal.Position_byte[1] = socket_ReceiveData[19];
+                UInt16 Int_Position = BitConverter.ToUInt16(protocal.Position_byte, 0);
+                if (micro.Checked)
+                    Int_Position += 20;                                     //원스텝
+                else
+                    Int_Position += 200;                                     //원스텝
+                protocal.Position_byte = protocal.GetBytesUInt16(Int_Position);
+                makemovedata();
+                headermovedata = headerplusmovedata();
+                mainSock.Send(headermovedata);
 
-            byte[] headermovedata;
-            txtSTT.Clear();
-            protocal.Head_Move();
-            protocal.move_Position();
-            protocal.Position_byte = position;                      //초기화 후 포지션값 재배치
-            UInt16 Int_Position = BitConverter.ToUInt16(protocal.Position_byte, 0);
-            Int_Position += 20;                                     //원스텝
-            protocal.Position_byte = protocal.GetBytesUInt16(Int_Position);
-            makemovedata();
-            headermovedata = headerplusmovedata();
-            mainSock.Send(headermovedata);
+                current_Position.Text = BitConverter.ToUInt16(protocal.Position_byte, 0).ToString();    //이동위치 출력
 
-            //current_Position.Text = BitConverter.ToUInt16(protocal.Position_byte, 0).ToString();
+                if (txtSTT.Text != "")
+                    txtSTT.Clear();
+                AppendText(txtSTT, string.Format("onestep 보냄"));
+            }
         }
 
         void move_backstep()
         {
-            req_status();
-
             byte[] headermovedata;
-            txtSTT.Clear();
             protocal.Head_Move();
             protocal.move_Position();
-            protocal.Position_byte = position;                      //초기화 후 포지션값 재배치
+            protocal.Position_byte[0] = socket_ReceiveData[18];
+            protocal.Position_byte[1] = socket_ReceiveData[19];
             UInt16 Int_Position = BitConverter.ToUInt16(protocal.Position_byte, 0);
-            Int_Position -= 20;                                     //원스텝
+            if(Int_Position<20)
+                AppendText(txtHistory, string.Format("음수값을 가질수 없습니다"));
+            else {
+                if (micro.Checked)
+                    Int_Position -= 20;                                     //원스텝
+                else
+                    Int_Position -= 200;                                     //원스텝
+            }
             protocal.Position_byte = protocal.GetBytesUInt16(Int_Position);
             makemovedata();
             headermovedata = headerplusmovedata();
             mainSock.Send(headermovedata);
 
-            //current_Position.Text = BitConverter.ToUInt16(protocal.Position_byte, 0).ToString();
+            current_Position.Text = BitConverter.ToUInt16(protocal.Position_byte, 0).ToString();    //이동위치 출력
 
+            if (txtSTT.Text != "")
+                txtSTT.Clear();
+            AppendText(txtSTT, string.Format("backstep 보냄"));
         }
 
         void alarm()
@@ -535,8 +611,10 @@ namespace Autopocusing
         //opengl function
         private void glControl1_Load(object sender, EventArgs e)
         {
-            GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);  // 배경색 alpha는 투명도
+            GL.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);  // 배경색 alpha는 투명도
             GL.Enable(EnableCap.DepthTest);
+            //timer2.Interval = 1;
+            //timer2.Enabled = true;
         }
         private void glControl1_Resize(object sender, EventArgs e)
         {
@@ -556,7 +634,7 @@ namespace Autopocusing
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(ref modelview);
 
-            GL.Begin(BeginMode.Polygon);
+            GL.Begin(BeginMode.Triangles);
 
             GL.Color3(1.0f, 0.0f, 0.0f); GL.Vertex3(1.0f, 1.0f, 4.0f);
             GL.Color3(0.0f, 1.0f, 0.0f); GL.Vertex3(1.0f, -1.0f, 4.0f);
@@ -568,7 +646,7 @@ namespace Autopocusing
         }
 
         //button function
-        public void initbutton()
+        public void Button_InitImage()
         {
             init_btn.Enabled = true;
             start_btn.Enabled = false;
@@ -604,7 +682,7 @@ namespace Autopocusing
             live_stop_btn.Enabled = false;
         }
 
-        public void initmgsbutton()
+        public void Button_InitMgs()
         {
             btnConnect.Enabled = true;
             close_btn.Enabled = false;
@@ -620,7 +698,7 @@ namespace Autopocusing
             chang_Position.Enabled = false;
 
         }
-        public void connectable()
+        public void Button_Connect()
         {
             btnConnect.Enabled = false;
             close_btn.Enabled = true;
@@ -635,9 +713,6 @@ namespace Autopocusing
             req_status_btn.Enabled = true;
             alarm_btn.Enabled = true;
             chang_Position.Enabled = true;
-        }
-        public void position_clickable()
-        {
             move_btn.Enabled = true;
             forwardstep.Enabled = true;
             backstep.Enabled = true;
@@ -650,21 +725,21 @@ namespace Autopocusing
         private void init_btn_Click(object sender, EventArgs e)
         {
             initable();
-            image_init();
+            Image_Init();
         }
 
         private void start_btn_Click(object sender, EventArgs e)
         {
             startable();
-            start();
+            Image_Start();
         }
 
         private void live_btn_Click(object sender, EventArgs e)
         {
             liveable();
-            stop = false;
-            th2 = new Thread(new ThreadStart(myThread2));
-            th2.Start();
+            threadStop = false;
+            Image_thread = new Thread(new ThreadStart(Image_myThread));
+            Image_thread.Start();
         }
 
         private void capture_btn_Click(object sender, EventArgs e)
@@ -674,16 +749,21 @@ namespace Autopocusing
 
         private void stop_btn_Click(object sender, EventArgs e)
         {
-            initbutton();
-            stop = true;
-            stop1();
-            dispose();
+            Button_InitImage();
+            threadStop = true;
+            if (threadisrun == true)
+            {
+                Image_thread.Abort();
+                threadisrun = false;
+            }
+            Image_Stop();
+            Image_Dispose();
         }
 
         private void live_stop_btn_Click(object sender, EventArgs e)
         {
             livestopable();
-            th2.Abort();
+            Image_thread.Abort();
         }
 
         private void pictureBox1_Click_1(object sender, EventArgs e)
@@ -694,7 +774,18 @@ namespace Autopocusing
         //multichat design
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (mainSock != null && mainSock.Connected == true)
                 mainSock.Disconnect(false);
+            Button_InitImage();
+            threadStop = true;
+            if (threadisrun == true)
+            {
+                Image_thread.Abort();
+                threadisrun = false;
+            }
+            Image_Stop();
+            Image_Dispose();
+
         }
 
         private void txtHistory_TextChanged(object sender, EventArgs e)
@@ -716,7 +807,7 @@ namespace Autopocusing
         private void req_status_btn_Click(object sender, EventArgs e)
         {
             req_status();
-            
+
         }
 
         private void homing_btn_Click(object sender, EventArgs e)
@@ -727,6 +818,8 @@ namespace Autopocusing
 
         private void move_btn_Click(object sender, EventArgs e)
         {
+            req_status();
+            System.Threading.Thread.Sleep(1000);    //bad TCP 방지
             move();
         }
 
@@ -734,17 +827,12 @@ namespace Autopocusing
         {
             alarm();
         }
-
-        private void chang_Position_Click(object sender, EventArgs e)
-        {
-                position_clickable();
-                req_status();
-        }
+        
 
         private void current_Position_TextChanged(object sender, EventArgs e)
         {
-            
-            
+
+
         }
 
         private void chang_Position_TextChanged(object sender, EventArgs e)
@@ -754,39 +842,43 @@ namespace Autopocusing
 
         private void forwardstep_Click(object sender, EventArgs e)
         {
+            req_status();
+            System.Threading.Thread.Sleep(1000);    //bad TCP 방지
             move_forwardstep();
 
         }
-       
+
 
         private void backstep_Click(object sender, EventArgs e)
         {
+            req_status();
+            System.Threading.Thread.Sleep(1000);    //bad TCP 방지
             move_backstep();
         }
 
         private void close_btn_Click(object sender, EventArgs e)
         {
-            initmgsbutton();
-                mainSock.Disconnect(false);
-                initbutton();
-                stop = true;
-                stop1();
-                dispose();
-            
+            Button_InitMgs();
+            mainSock.Disconnect(false);
+            Button_InitImage();
+            threadStop = true;
+            Image_Stop();
+            Image_Dispose();
+
         }
 
         private void auto_btn_Click(object sender, EventArgs e)
         {
-            onserver();
+            OnServer();
             System.Threading.Thread.Sleep(1000);
-            image_init();
+            Image_Init();
             System.Threading.Thread.Sleep(1000);
-            start();
+            Image_Start();
             System.Threading.Thread.Sleep(1000);
             liveable();
-            stop = false;
-            th2 = new Thread(new ThreadStart(myThread2));
-            th2.Start();
+            threadStop = false;
+            Image_thread = new Thread(new ThreadStart(Image_myThread));
+            Image_thread.Start();
             System.Threading.Thread.Sleep(3000);
             {//homing 버튼
                 homingable();
@@ -800,6 +892,16 @@ namespace Autopocusing
         private void txtAddress_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            glControl1.SwapBuffers();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //timer2.Dispose();
         }
     }
 }

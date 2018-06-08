@@ -56,6 +56,7 @@
             this.live_btn = new ManiXButton.XButton();
             this.start_btn = new ManiXButton.XButton();
             this.init_btn = new ManiXButton.XButton();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.close_btn = new ManiXButton.XButton();
@@ -75,6 +76,7 @@
             this.forwardstep = new ManiXButton.XButton();
             this.homing_btn = new ManiXButton.XButton();
             this.move_btn = new ManiXButton.XButton();
+            this.micro = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -156,7 +158,6 @@
             this.chang_Position.Name = "chang_Position";
             this.chang_Position.Size = new System.Drawing.Size(157, 25);
             this.chang_Position.TabIndex = 15;
-            this.chang_Position.Click += new System.EventHandler(this.chang_Position_Click);
             // 
             // head_format_btn
             // 
@@ -240,6 +241,7 @@
             this.tableLayoutPanel1.Controls.Add(this.init_btn, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.keep_alive_btn, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.head_format_btn, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 21);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -384,6 +386,16 @@
             this.init_btn.Theme = ManiXButton.Theme.MSOffice2010_BLUE;
             this.init_btn.UseVisualStyleBackColor = true;
             this.init_btn.Click += new System.EventHandler(this.init_btn_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 103);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 36;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox2
             // 
@@ -568,6 +580,7 @@
             this.tableLayoutPanel4.Controls.Add(this.current_Position, 1, 2);
             this.tableLayoutPanel4.Controls.Add(this.homing_btn, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.move_btn, 2, 1);
+            this.tableLayoutPanel4.Controls.Add(this.micro, 1, 3);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 21);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -665,6 +678,17 @@
             this.move_btn.UseVisualStyleBackColor = true;
             this.move_btn.Click += new System.EventHandler(this.move_btn_Click);
             // 
+            // micro
+            // 
+            this.micro.AutoSize = true;
+            this.micro.Dock = System.Windows.Forms.DockStyle.Right;
+            this.micro.Location = new System.Drawing.Point(184, 93);
+            this.micro.Name = "micro";
+            this.micro.Size = new System.Drawing.Size(89, 24);
+            this.micro.TabIndex = 39;
+            this.micro.Text = "미세조정";
+            this.micro.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -741,6 +765,8 @@
         private ManiXButton.XButton backstep;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox micro;
     }
 }
 

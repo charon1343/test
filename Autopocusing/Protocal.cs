@@ -20,7 +20,7 @@ namespace Autopocusing
         public byte[] Reserve1_byte;
 
         //head complete var
-        public byte[] byteArray = new byte[16];    //get,set 추가예정
+        public byte[] byteArray = new byte[16];
 
         //move var
         public UInt16 Reserve_m0;
@@ -29,11 +29,11 @@ namespace Autopocusing
 
         //move_byte[] var
         public byte[] Reserve_m0_byte;
-        public byte[] Position_byte;
+        public byte[] Position_byte = new byte[2];
         public byte[] Reserve_m1_byte;
 
         //move complete var;
-        public byte[] move_byteArray = new byte[8];//get,set 추가예정
+        public byte[] move_byteArray = new byte[8];
 
         //==============================================================
         //header 초기화
@@ -100,16 +100,24 @@ namespace Autopocusing
         public void initMove()
         {
             Reserve_m0 = 0;
-            Position = 0;
+            //Position = 0;
             Reserve_m1 = 0;
 
+        }
+        public void initMove(UInt16 Position)
+        {
+            Reserve_m0 = 0;
+            this.Position = Position;
+            Reserve_m1 = 0;
         }
 
         public void move_Position()
         {
-            initMove();
-            Position = 10;
-
+            if (Position == 0)
+                initMove();
+            else
+            initMove(Position);
+            
             move_IntTobyteArray();
         }
         public void move_set()
