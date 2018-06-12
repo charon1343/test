@@ -16,7 +16,7 @@ using System.Net.Sockets;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace Autopocusing
+namespace AF
 {
     enum AFMsg
     {
@@ -44,6 +44,10 @@ namespace Autopocusing
         delegate void Image_Delegate();
         bool threadStop;
         bool threadisrun;
+        int i = 0;
+        int max = -9999;
+        int maxi = 0;
+        bool at;
 
         //multichat header
         //delegate void OtherThread(Control ctrl);
@@ -55,13 +59,14 @@ namespace Autopocusing
         static byte[] socket_ReceiveData;
         //public byte[] position = new byte[2];
 
+        int[] atfocus = new int[198];
+
         Protocal protocal = new Protocal();
 
         public Form1()
         {
             InitializeComponent();
         }
-
 
         //image function
         //callback function continuously image making
@@ -92,7 +97,6 @@ namespace Autopocusing
                 }
             }
         }
-
         //image ready callback
         public void Image_Init()
         {
@@ -116,10 +120,10 @@ namespace Autopocusing
         //callback stop
         public void Image_Stop()
         {
-            if (device != null&& threadisrun)   //미접속 및 2중dispose 방지
+            if (device != null && threadisrun)   //미접속 및 2중dispose 방지
             {
                 device.AcquisitionStop();
-                
+
                 dataStream.StopAcquisition();
             }
 
@@ -141,6 +145,29 @@ namespace Autopocusing
         private void Image_ThreadFunction()
         {
             pictureBox1.Image = map;
+            if (at == true)
+            {
+                atfocus[i] = Image2D(map);
+                Console.WriteLine("i:" + i + " atfocus[i]:" + atfocus[i]);
+                move_forwardstep();
+                if (max < atfocus[i])
+                {
+
+                    max = atfocus[i];
+                    maxi = i;
+                    Console.WriteLine("max : " + max);
+                }
+                i++;
+                if (i > 197)
+                {
+                    at = false;
+                    i = 0;
+                }
+
+                Console.WriteLine("maxi: " + maxi);
+            }
+            else
+                pictureBox1.Image = map;
         }
 
         //thread delegate
@@ -169,21 +196,6 @@ namespace Autopocusing
                 ctrl.Text = source + Environment.NewLine + s;
             }
         }
-        //socket_recieve_try1(current_Position,BitConverter.ToUInt16(protocal.Position_byte, 0).ToString());
-        //void txtSTTClear(Control ctrl) //thread 예외처리
-        //{
-        //    if (ctrl.InvokeRequired)
-        //    {
-        //        ctrl.Invoke(new OtherThread(txtSTTClear), ctrl);
-        //        txtSTT.Clear();
-        //    }
-        //    else
-        //    {
-        //        txtSTT.Clear();
-        //    }
-
-        //}
-
         //주소로드
         void OnFormLoaded(object sender, EventArgs e)
         {
@@ -210,8 +222,6 @@ namespace Autopocusing
 
 #endif
             //button select
-            Button_InitImage();
-            Button_InitMgs();
 
         }
 
@@ -253,7 +263,6 @@ namespace Autopocusing
             obj.WorkingSocket = mainSock;
             mainSock.BeginReceive(obj.Buffer, 0, obj.BufferSize, 0, DataReceived, obj);
 
-            Button_Connect();
         }
 
 
@@ -296,12 +305,15 @@ namespace Autopocusing
                         AppendText(txtHistory, string.Format("ReqStatus받음"));
                         protocal.Position_byte[0] = socket_ReceiveData[10];
                         protocal.Position_byte[1] = socket_ReceiveData[11];
+
                         break;
                     case (int)AFMsg.Msg_Homing:
                         AppendText(txtHistory, string.Format("Homing받음"));
+
                         break;
                     case (int)AFMsg.Msg_HomingDone:
                         AppendText(txtHistory, string.Format("HomingDone받음"));
+
                         break;
                     case (int)AFMsg.Msg_Move:
                         AppendText(txtHistory, string.Format("Move받음"));
@@ -316,8 +328,8 @@ namespace Autopocusing
                         break;
                     case 11:
                         AppendText(txtHistory, string.Format("Miss ReqStatus받음"));
-                            protocal.Position_byte[0] = socket_ReceiveData[10];
-                            protocal.Position_byte[1] = socket_ReceiveData[11];
+                        protocal.Position_byte[0] = socket_ReceiveData[10];
+                        protocal.Position_byte[1] = socket_ReceiveData[11];
                         break;
                     default:
                         AppendText(txtHistory, string.Format("default"));
@@ -335,7 +347,7 @@ namespace Autopocusing
 
 
         }
-        
+
 
         //아스키코드 to Hex
         string ASCIIToHex(string msg1)
@@ -460,7 +472,6 @@ namespace Autopocusing
             // 서버에 전송한다.
             mainSock.Send(socket_SendData);
 
-
             if (txtSTT.Text != "")
                 txtSTT.Clear();
             AppendText(txtSTT, string.Format("Req_status 보냄"));
@@ -538,10 +549,10 @@ namespace Autopocusing
                 protocal.Position_byte[0] = socket_ReceiveData[18];
                 protocal.Position_byte[1] = socket_ReceiveData[19];
                 UInt16 Int_Position = BitConverter.ToUInt16(protocal.Position_byte, 0);
-                if (micro.Checked)
-                    Int_Position += 20;                                     //원스텝
-                else
-                    Int_Position += 200;                                     //원스텝
+                //if (micro.Checked)
+                Int_Position += 20;                                     //원스텝
+                //else
+                //    Int_Position += 200;                                     //원스텝
                 protocal.Position_byte = protocal.GetBytesUInt16(Int_Position);
                 makemovedata();
                 headermovedata = headerplusmovedata();
@@ -563,13 +574,14 @@ namespace Autopocusing
             protocal.Position_byte[0] = socket_ReceiveData[18];
             protocal.Position_byte[1] = socket_ReceiveData[19];
             UInt16 Int_Position = BitConverter.ToUInt16(protocal.Position_byte, 0);
-            if(Int_Position<20)
+            if (Int_Position < 20)
                 AppendText(txtHistory, string.Format("음수값을 가질수 없습니다"));
-            else {
-                if (micro.Checked)
-                    Int_Position -= 20;                                     //원스텝
-                else
-                    Int_Position -= 200;                                     //원스텝
+            else
+            {
+                //if (micro.Checked)
+                    Int_Position -= 10;                                     //원스텝
+                //else
+                    //Int_Position -= 200;                                     //원스텝
             }
             protocal.Position_byte = protocal.GetBytesUInt16(Int_Position);
             makemovedata();
@@ -608,175 +620,34 @@ namespace Autopocusing
         }
 
 
-        //opengl function
-        private void glControl1_Load(object sender, EventArgs e)
+        public int Image2D(Bitmap img)
         {
-            GL.ClearColor(1.0f, 1.0f, 1.0f, 0.0f);  // 배경색 alpha는 투명도
-            GL.Enable(EnableCap.DepthTest);
-            //timer2.Interval = 1;
-            //timer2.Enabled = true;
-        }
-        private void glControl1_Resize(object sender, EventArgs e)
-        {
-            GL.Viewport(0, 0, glControl1.Width, glControl1.Height); //창을 기준으로 한다
-
-            Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1.0f, 64.0f);
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadMatrix(ref projection);
-        }
-
-        private void glControl1_Paint(object sender, PaintEventArgs e)
-        {
-            //Console.WriteLine("drawing...");
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-            Matrix4 modelview = Matrix4.LookAt(Vector3.Zero, Vector3.UnitZ, Vector3.UnitY);
-            GL.MatrixMode(MatrixMode.Modelview);
-            GL.LoadMatrix(ref modelview);
-
-            GL.Begin(BeginMode.Triangles);
-
-            GL.Color3(1.0f, 0.0f, 0.0f); GL.Vertex3(1.0f, 1.0f, 4.0f);
-            GL.Color3(0.0f, 1.0f, 0.0f); GL.Vertex3(1.0f, -1.0f, 4.0f);
-            GL.Color3(0.0f, 0.0f, 1.0f); GL.Vertex3(-1.0f, -1.0f, 4.0f);
-            GL.Color3(1.0f, 1.0f, 1.0f); GL.Vertex3(-1.0f, 1.0f, 4.0f);
-
-            GL.End();
-            glControl1.SwapBuffers();
-        }
-
-        //button function
-        public void Button_InitImage()
-        {
-            init_btn.Enabled = true;
-            start_btn.Enabled = false;
-            live_btn.Enabled = false;
-            capture_btn.Enabled = false;
-            live_stop_btn.Enabled = false;
-            stop_btn.Enabled = false;
-        }
-
-        public void initable()
-        {
-            start_btn.Enabled = true;
-            init_btn.Enabled = false;
-            auto_btn.Enabled = false;
-        }
-        public void startable()
-        {
-            live_btn.Enabled = true;
-            capture_btn.Enabled = true;
-            start_btn.Enabled = false;
-            stop_btn.Enabled = true;
-        }
-        public void liveable()
-        {
-            capture_btn.Enabled = false;
-            live_stop_btn.Enabled = true;
-            live_btn.Enabled = false;
-        }
-        public void livestopable()
-        {
-            capture_btn.Enabled = true;
-            live_btn.Enabled = true;
-            live_stop_btn.Enabled = false;
-        }
-
-        public void Button_InitMgs()
-        {
-            btnConnect.Enabled = true;
-            close_btn.Enabled = false;
-            btnSend.Enabled = false;
-            head_format_btn.Enabled = false;
-            keep_alive_btn.Enabled = false;
-            req_status_btn.Enabled = false;
-            homing_btn.Enabled = false;
-            move_btn.Enabled = false;
-            alarm_btn.Enabled = false;
-            forwardstep.Enabled = false;
-            backstep.Enabled = false;
-            chang_Position.Enabled = false;
-
-        }
-        public void Button_Connect()
-        {
-            btnConnect.Enabled = false;
-            close_btn.Enabled = true;
-            btnSend.Enabled = true;
-            homing_btn.Enabled = true;
-        }
-
-        public void homingable()
-        {
-            head_format_btn.Enabled = true;
-            keep_alive_btn.Enabled = true;
-            req_status_btn.Enabled = true;
-            alarm_btn.Enabled = true;
-            chang_Position.Enabled = true;
-            move_btn.Enabled = true;
-            forwardstep.Enabled = true;
-            backstep.Enabled = true;
-        }
-
-        public void closeable()
-        {
-        }
-        //image designe
-        private void init_btn_Click(object sender, EventArgs e)
-        {
-            initable();
-            Image_Init();
-        }
-
-        private void start_btn_Click(object sender, EventArgs e)
-        {
-            startable();
-            Image_Start();
-        }
-
-        private void live_btn_Click(object sender, EventArgs e)
-        {
-            liveable();
-            threadStop = false;
-            Image_thread = new Thread(new ThreadStart(Image_myThread));
-            Image_thread.Start();
-        }
-
-        private void capture_btn_Click(object sender, EventArgs e)
-        {
-            pictureBox1.Image = map;
-        }
-
-        private void stop_btn_Click(object sender, EventArgs e)
-        {
-            Button_InitImage();
-            threadStop = true;
-            if (threadisrun == true)
+            //Bitmap image;
+            int mean;
+            int mean1;
+            int sum = 0;
+            Color color;
+            Color color1;
+            for (int i = 0; i < 500; i++)
             {
-                Image_thread.Abort();
-                threadisrun = false;
+                for (int z = 0; z < 500; z++)
+                {
+
+                    color1 = img.GetPixel(i, z + 1);
+                    color = img.GetPixel(i, z);
+                    mean1 = (color1.R + color1.G + color1.B);
+                    mean = (color.R + color.G + color.B);
+                    sum += Math.Abs(mean1 - mean);
+                }
             }
-            Image_Stop();
-            Image_Dispose();
+            AppendText(txtHistory, string.Format(sum.ToString()));
+            return sum;
         }
-
-        private void live_stop_btn_Click(object sender, EventArgs e)
-        {
-            livestopable();
-            Image_thread.Abort();
-        }
-
-        private void pictureBox1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         //multichat design
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (mainSock != null && mainSock.Connected == true)
                 mainSock.Disconnect(false);
-            Button_InitImage();
             threadStop = true;
             if (threadisrun == true)
             {
@@ -787,121 +658,41 @@ namespace Autopocusing
             Image_Dispose();
 
         }
-
-        private void txtHistory_TextChanged(object sender, EventArgs e)
-        {
-            txtHistory.SelectionStart = txtHistory.TextLength;
-            txtHistory.ScrollToCaret();
-        }
-
-        private void head_format_btn_Click(object sender, EventArgs e)
-        {
-            head_format();
-        }
-
-        private void keep_alive_btn_Click(object sender, EventArgs e)
-        {
-            keep_alive();
-        }
-
-        private void req_status_btn_Click(object sender, EventArgs e)
-        {
-            req_status();
-
-        }
-
-        private void homing_btn_Click(object sender, EventArgs e)
-        {
-            homingable();
-            homing();
-        }
-
-        private void move_btn_Click(object sender, EventArgs e)
-        {
-            req_status();
-            System.Threading.Thread.Sleep(1000);    //bad TCP 방지
-            move();
-        }
-
-        private void alarm_btn_Click(object sender, EventArgs e)
-        {
-            alarm();
-        }
-        
-
-        private void current_Position_TextChanged(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void chang_Position_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void forwardstep_Click(object sender, EventArgs e)
-        {
-            req_status();
-            System.Threading.Thread.Sleep(1000);    //bad TCP 방지
-            move_forwardstep();
-
-        }
-
-
-        private void backstep_Click(object sender, EventArgs e)
-        {
-            req_status();
-            System.Threading.Thread.Sleep(1000);    //bad TCP 방지
-            move_backstep();
-        }
-
-        private void close_btn_Click(object sender, EventArgs e)
-        {
-            Button_InitMgs();
-            mainSock.Disconnect(false);
-            Button_InitImage();
-            threadStop = true;
-            Image_Stop();
-            Image_Dispose();
-
-        }
-
-        private void auto_btn_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             OnServer();
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(10);
             Image_Init();
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(10);
             Image_Start();
-            System.Threading.Thread.Sleep(1000);
-            liveable();
+            System.Threading.Thread.Sleep(10);
             threadStop = false;
             Image_thread = new Thread(new ThreadStart(Image_myThread));
             Image_thread.Start();
-            System.Threading.Thread.Sleep(3000);
+            System.Threading.Thread.Sleep(30);
             {//homing 버튼
-                homingable();
                 homing();
             }
-            init_btn.Enabled = false;
-            stop_btn.Enabled = true;
-            auto_btn.Enabled = false;
         }
 
-        private void txtAddress_TextChanged(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
+            at = true;
+        }
+        
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            chang_Position.Text = (maxi * 10).ToString();
+            System.Threading.Thread.Sleep(10);
+            move();
+            max = 0;
+            maxi = 0;
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
-            glControl1.SwapBuffers();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //timer2.Dispose();
+            homing();
         }
     }
 }
