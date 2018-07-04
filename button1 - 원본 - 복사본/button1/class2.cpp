@@ -160,9 +160,9 @@ void class2::OnBnClickedButton11()
 	dlg.m_nValue = 3;
 	if (dlg.DoModal() == IDOK) {
 		switch(	dlg.m_nValue) {
-			case 1: AfxMessageBox(_T("Don't Care")); break;
-			case 2: AfxMessageBox(_T("Dark to Light")); break;
-			case 3: AfxMessageBox(_T("Light to Dark")); break;
+			case 1: m_DarkToLight.SetWindowTextW(_T("Don't Care"));	break;
+			case 2: m_DarkToLight.SetWindowTextW(_T("Dark to Light")); break;
+			case 3: m_DarkToLight.SetWindowTextW(_T("Light to Dark")); break;
 		}
 		
 	}

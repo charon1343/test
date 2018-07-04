@@ -101,6 +101,7 @@
   <ItemGroup>
     <ClInclude Include="button1.h" />
     <ClInclude Include="button1Dlg.h" />
+    <ClInclude Include="CenterX.h" />
     <ClInclude Include="class1.h" />
     <ClInclude Include="class2.h" />
     <ClInclude Include="class3.h" />
@@ -115,6 +116,7 @@
   <ItemGroup>
     <ClCompile Include="button1.cpp" />
     <ClCompile Include="button1Dlg.cpp" />
+    <ClCompile Include="CenterX.cpp" />
     <ClCompile Include="class1.cpp" />
     <ClCompile Include="class2.cpp" />
     <ClCompile Include="class3.cpp" />
