@@ -1,5 +1,5 @@
 #pragma once
-
+#include "CalssValue.h"
 
 // CenterX 대화 상자입니다.
 
@@ -35,6 +35,7 @@ public:
 	afx_msg void OnBnClickedButton1();
 	virtual BOOL OnInitDialog();
 	CString value;
+	
 	afx_msg void OnBnClickedButton4();
 	afx_msg void OnBnClickedButton5();
 	afx_msg void OnBnClickedButton2();
@@ -44,4 +45,6 @@ public:
 	afx_msg void OnBnClickedButton10();
 	afx_msg void OnBnClickedButton11();
 	afx_msg void OnBnClickedButton18();
+
+	CalssValue classvalue;
 };

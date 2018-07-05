@@ -60,4 +60,6 @@ public:
 	afx_msg void OnBnClickedButton16();
 	afx_msg void OnBnClickedButton17();
 	afx_msg void OnBnClickedButton10();
+
+	CalssValue classvalue;
 };

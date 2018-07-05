@@ -186,7 +186,7 @@ void class2::OnBnClickedButton4()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_CalipersValue.SetWindowTextW(_T("50"));
+		m_CalipersValue.SetWindowTextW(centerx.value);
 	}
 }
 
@@ -196,7 +196,7 @@ void class2::OnBnClickedButton5()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_CalipersValue.SetWindowTextW(_T("50"));
+		m_CalipersValue.SetWindowTextW(centerx.value);
 	}
 }
 
@@ -206,7 +206,7 @@ void class2::OnBnClickedButton6()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_ProjectionValue.SetWindowTextW(_T("50"));
+		m_ProjectionValue.SetWindowTextW(centerx.value);
 	}
 }
 
@@ -216,7 +216,7 @@ void class2::OnBnClickedButton7()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_ProjectionValue.SetWindowTextW(_T("50"));
+		m_ProjectionValue.SetWindowTextW(centerx.value);
 	}
 }
 
@@ -226,7 +226,7 @@ void class2::OnBnClickedButton8()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_SearchValue.SetWindowTextW(_T("50"));
+		m_SearchValue.SetWindowTextW(centerx.value);
 	}
 }
 
@@ -236,7 +236,7 @@ void class2::OnBnClickedButton9()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 			CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_SearchValue.SetWindowTextW(_T("50"));
+		m_SearchValue.SetWindowTextW(centerx.value);
 	}
 }
 
@@ -246,7 +246,7 @@ void class2::OnBnClickedButton12()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_ThreasholdValue.SetWindowTextW(_T("50"));
+		m_ThreasholdValue.SetWindowTextW(centerx.value);
 	}
 }
 
@@ -257,7 +257,7 @@ void class2::OnBnClickedButton13()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_ThreasholdValue.SetWindowTextW(_T("50"));
+		m_ThreasholdValue.SetWindowTextW(centerx.value);
 	}
 }
 
@@ -267,7 +267,7 @@ void class2::OnBnClickedButton14()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_HalfPixelValue.SetWindowTextW(_T("50"));
+		m_HalfPixelValue.SetWindowTextW(centerx.value);
 	}
 }
 
@@ -277,7 +277,7 @@ void class2::OnBnClickedButton15()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_HalfPixelValue.SetWindowTextW(_T("50"));
+		m_HalfPixelValue.SetWindowTextW(centerx.value);
 	}
 }
 
@@ -287,7 +287,7 @@ void class2::OnBnClickedButton16()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_IgnoreValue.SetWindowTextW(_T("50"));
+		m_IgnoreValue.SetWindowTextW(centerx.value);
 	}
 }
 
@@ -297,7 +297,7 @@ void class2::OnBnClickedButton17()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 			CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_IgnoreValue.SetWindowTextW(_T("50"));
+		m_IgnoreValue.SetWindowTextW(centerx.value);
 	}
 }
 
