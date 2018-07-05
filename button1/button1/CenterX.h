@@ -33,4 +33,15 @@ public:
 	CButton m_SelChangSign;
 	CButton m_SelPoint;
 	afx_msg void OnBnClickedButton1();
+	virtual BOOL OnInitDialog();
+	CString value;
+	afx_msg void OnBnClickedButton4();
+	afx_msg void OnBnClickedButton5();
+	afx_msg void OnBnClickedButton2();
+	afx_msg void OnBnClickedButton7();
+	afx_msg void OnBnClickedButton8();
+	afx_msg void OnBnClickedButton9();
+	afx_msg void OnBnClickedButton10();
+	afx_msg void OnBnClickedButton11();
+	afx_msg void OnBnClickedButton18();
 };

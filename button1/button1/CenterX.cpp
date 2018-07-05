@@ -13,6 +13,7 @@ IMPLEMENT_DYNAMIC(CenterX, CDialogEx)
 
 CenterX::CenterX(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CenterX::IDD, pParent)
+	, value(_T(""))
 {
 
 }
@@ -42,6 +43,15 @@ void CenterX::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CenterX, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CenterX::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON4, &CenterX::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON5, &CenterX::OnBnClickedButton5)
+	ON_BN_CLICKED(IDC_BUTTON2, &CenterX::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON7, &CenterX::OnBnClickedButton7)
+	ON_BN_CLICKED(IDC_BUTTON8, &CenterX::OnBnClickedButton8)
+	ON_BN_CLICKED(IDC_BUTTON9, &CenterX::OnBnClickedButton9)
+	ON_BN_CLICKED(IDC_BUTTON10, &CenterX::OnBnClickedButton10)
+	ON_BN_CLICKED(IDC_BUTTON11, &CenterX::OnBnClickedButton11)
+	ON_BN_CLICKED(IDC_BUTTON18, &CenterX::OnBnClickedButton18)
 END_MESSAGE_MAP()
 
 
@@ -51,5 +61,91 @@ END_MESSAGE_MAP()
 void CenterX::OnBnClickedButton1()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	m_edit.SetWindowTextW(_T("1"));
+	value.Append(_T("1"));
+	m_edit.SetWindowTextW(value);
+}
+
+
+BOOL CenterX::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// TODO:  여기에 추가 초기화 작업을 추가합니다.
+	m_edit.SetWindowTextW(_T("0"));
+	
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+}
+
+
+void CenterX::OnBnClickedButton4()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	value.Append(_T("2"));
+	m_edit.SetWindowTextW(value);
+}
+
+
+void CenterX::OnBnClickedButton5()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	value.Append(_T("3"));
+	m_edit.SetWindowTextW(value);
+}
+
+
+void CenterX::OnBnClickedButton2()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	value.Append(_T("4"));
+	m_edit.SetWindowTextW(value);
+}
+
+
+void CenterX::OnBnClickedButton7()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	value.Append(_T("5"));
+	m_edit.SetWindowTextW(value);
+}
+
+
+void CenterX::OnBnClickedButton8()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	value.Append(_T("6"));
+	m_edit.SetWindowTextW(value);
+}
+
+
+void CenterX::OnBnClickedButton9()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	value.Append(_T("7"));
+	m_edit.SetWindowTextW(value);
+}
+
+
+void CenterX::OnBnClickedButton10()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	value.Append(_T("8"));
+	m_edit.SetWindowTextW(value);
+}
+
+
+void CenterX::OnBnClickedButton11()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	value.Append(_T("9"));
+	m_edit.SetWindowTextW(value);
+}
+
+
+void CenterX::OnBnClickedButton18()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	value.Append(_T("0"));
+	m_edit.SetWindowTextW(value);
 }
