@@ -18,4 +18,19 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
+public:
+	CEdit m_edit;
+	CButton m_Sel1;
+	CButton m_Sel2;
+	CButton m_Sel3;
+	CButton m_Sel4;
+	CButton m_Sel5;
+	CButton m_Sel6;
+	CButton m_Sel7;
+	CButton m_Sel8;
+	CButton m_Sel9;
+	CButton m_Sel0;
+	CButton m_SelChangSign;
+	CButton m_SelPoint;
+	afx_msg void OnBnClickedButton1();
 };
