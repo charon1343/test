@@ -47,6 +47,19 @@ void class2::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(class2, CDialogEx)
 	ON_WM_WINDOWPOSCHANGED()
 	ON_BN_CLICKED(IDC_BUTTON11, &class2::OnBnClickedButton11)
+	ON_BN_CLICKED(IDC_BUTTON5, &class2::OnBnClickedButton5)
+	ON_BN_CLICKED(IDC_BUTTON4, &class2::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON6, &class2::OnBnClickedButton6)
+	ON_BN_CLICKED(IDC_BUTTON7, &class2::OnBnClickedButton7)
+	ON_BN_CLICKED(IDC_BUTTON8, &class2::OnBnClickedButton8)
+	ON_BN_CLICKED(IDC_BUTTON9, &class2::OnBnClickedButton9)
+	ON_BN_CLICKED(IDC_BUTTON12, &class2::OnBnClickedButton12)
+	ON_BN_CLICKED(IDC_BUTTON13, &class2::OnBnClickedButton13)
+	ON_BN_CLICKED(IDC_BUTTON14, &class2::OnBnClickedButton14)
+	ON_BN_CLICKED(IDC_BUTTON15, &class2::OnBnClickedButton15)
+	ON_BN_CLICKED(IDC_BUTTON16, &class2::OnBnClickedButton16)
+	ON_BN_CLICKED(IDC_BUTTON17, &class2::OnBnClickedButton17)
+	ON_BN_CLICKED(IDC_BUTTON10, &class2::OnBnClickedButton10)
 END_MESSAGE_MAP()
 
 
@@ -160,9 +173,145 @@ void class2::OnBnClickedButton11()
 	dlg.m_nValue = 3;
 	if (dlg.DoModal() == IDOK) {
 		switch(	dlg.m_nValue) {
-			case 1: AfxMessageBox(_T("Don't Care")); break;
-			case 2: AfxMessageBox(_T("Dark to Light")); break;
-			case 3: AfxMessageBox(_T("Light to Dark")); break;
+			case 1: m_DarkToLight.SetWindowTextW(_T("Don't Care"));	break;
+			case 2: m_DarkToLight.SetWindowTextW(_T("Dark to Light")); break;
+			case 3: m_DarkToLight.SetWindowTextW(_T("Light to Dark")); break;
+		}
+		
+	}
+}
+
+void class2::OnBnClickedButton4()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+		CenterX centerx;
+	if (centerx.DoModal() == IDOK) {
+		m_CalipersValue.SetWindowTextW(_T("50"));
+	}
+}
+
+
+void class2::OnBnClickedButton5()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CenterX centerx;
+	if (centerx.DoModal() == IDOK) {
+		m_CalipersValue.SetWindowTextW(_T("50"));
+	}
+}
+
+
+void class2::OnBnClickedButton6()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+		CenterX centerx;
+	if (centerx.DoModal() == IDOK) {
+		m_ProjectionValue.SetWindowTextW(_T("50"));
+	}
+}
+
+
+void class2::OnBnClickedButton7()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+		CenterX centerx;
+	if (centerx.DoModal() == IDOK) {
+		m_ProjectionValue.SetWindowTextW(_T("50"));
+	}
+}
+
+
+void class2::OnBnClickedButton8()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+		CenterX centerx;
+	if (centerx.DoModal() == IDOK) {
+		m_SearchValue.SetWindowTextW(_T("50"));
+	}
+}
+
+
+void class2::OnBnClickedButton9()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+			CenterX centerx;
+	if (centerx.DoModal() == IDOK) {
+		m_SearchValue.SetWindowTextW(_T("50"));
+	}
+}
+
+
+void class2::OnBnClickedButton12()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CenterX centerx;
+	if (centerx.DoModal() == IDOK) {
+		m_ThreasholdValue.SetWindowTextW(_T("50"));
+	}
+}
+
+
+
+void class2::OnBnClickedButton13()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CenterX centerx;
+	if (centerx.DoModal() == IDOK) {
+		m_ThreasholdValue.SetWindowTextW(_T("50"));
+	}
+}
+
+
+void class2::OnBnClickedButton14()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CenterX centerx;
+	if (centerx.DoModal() == IDOK) {
+		m_HalfPixelValue.SetWindowTextW(_T("50"));
+	}
+}
+
+
+void class2::OnBnClickedButton15()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+		CenterX centerx;
+	if (centerx.DoModal() == IDOK) {
+		m_HalfPixelValue.SetWindowTextW(_T("50"));
+	}
+}
+
+
+void class2::OnBnClickedButton16()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+		CenterX centerx;
+	if (centerx.DoModal() == IDOK) {
+		m_IgnoreValue.SetWindowTextW(_T("50"));
+	}
+}
+
+
+void class2::OnBnClickedButton17()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+			CenterX centerx;
+	if (centerx.DoModal() == IDOK) {
+		m_IgnoreValue.SetWindowTextW(_T("50"));
+	}
+}
+
+
+void class2::OnBnClickedButton10()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	Polarity dlg;
+	dlg.m_nValue = 3;
+	if (dlg.DoModal() == IDOK) {
+		switch(	dlg.m_nValue) {
+			case 1: m_DarkToLight.SetWindowTextW(_T("Don't Care"));	break;
+			case 2: m_DarkToLight.SetWindowTextW(_T("Dark to Light")); break;
+			case 3: m_DarkToLight.SetWindowTextW(_T("Light to Dark")); break;
 		}
 		
 	}

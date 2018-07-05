@@ -25,10 +25,10 @@ public:
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton4();
 	afx_msg void OnBnClickedButton5();
-	afx_msg void OnBnClickedCheck5();
 	CMNVButton m_DontCare;
 	CMNVButton m_DarkToLight;
 	CMNVButton m_LightToDark;
+	afx_msg void OnBnClickedCheck5();
 	afx_msg void OnBnClickedCheck6();
 	afx_msg void OnBnClickedCheck7();
 };

@@ -38,7 +38,5 @@ END_MESSAGE_MAP()
 void class3::OnBnClickedButton1()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	//m_polarity.Create(m_polarity.IDD,this);
-	//m_polarity.ShowWindow(SW_SHOW);
 	
 }
