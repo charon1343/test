@@ -57,15 +57,6 @@ END_MESSAGE_MAP()
 
 // CenterX 메시지 처리기입니다.
 
-
-void CenterX::OnBnClickedButton1()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	value.Append(_T("1"));
-	m_edit.SetWindowTextW(value);
-}
-
-
 BOOL CenterX::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -78,6 +69,12 @@ BOOL CenterX::OnInitDialog()
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
+void CenterX::OnBnClickedButton1()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	value.Append(_T("1"));
+	m_edit.SetWindowTextW(value);
+}
 
 void CenterX::OnBnClickedButton4()
 {

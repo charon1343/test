@@ -186,7 +186,10 @@ void class2::OnBnClickedButton4()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_CalipersValue.SetWindowTextW(centerx.value);
+		centerx.classvalue.calipers=_ttoi(centerx.value);
+		CString value;
+		value.Format( _T("%d"), centerx.classvalue.calipers);
+		m_CalipersValue.SetWindowTextW(value);
 	}
 }
 
@@ -196,7 +199,11 @@ void class2::OnBnClickedButton5()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_CalipersValue.SetWindowTextW(centerx.value);
+		centerx.classvalue.calipers=_ttoi(centerx.value);
+		CString value;
+		value.Format( _T("%d"), centerx.classvalue.calipers);
+		m_CalipersValue.SetWindowTextW(value);
+		
 	}
 }
 
@@ -206,7 +213,10 @@ void class2::OnBnClickedButton6()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_ProjectionValue.SetWindowTextW(centerx.value);
+		centerx.classvalue.projection=_ttoi(centerx.value);
+		CString value;
+		value.Format( _T("%d"), centerx.classvalue.projection);
+		m_ProjectionValue.SetWindowTextW(value);
 	}
 }
 
@@ -216,7 +226,10 @@ void class2::OnBnClickedButton7()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_ProjectionValue.SetWindowTextW(centerx.value);
+		centerx.classvalue.projection=_ttoi(centerx.value);
+		CString value;
+		value.Format( _T("%d"), centerx.classvalue.projection);
+		m_ProjectionValue.SetWindowTextW(value);
 	}
 }
 
@@ -226,7 +239,10 @@ void class2::OnBnClickedButton8()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_SearchValue.SetWindowTextW(centerx.value);
+		centerx.classvalue.search=_ttoi(centerx.value);
+		CString value;
+		value.Format( _T("%d"), centerx.classvalue.search);
+		m_SearchValue.SetWindowTextW(value);
 	}
 }
 
@@ -234,9 +250,12 @@ void class2::OnBnClickedButton8()
 void class2::OnBnClickedButton9()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-			CenterX centerx;
+	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_SearchValue.SetWindowTextW(centerx.value);
+		centerx.classvalue.search=_ttoi(centerx.value);
+		CString value;
+		value.Format( _T("%d"), centerx.classvalue.search);
+		m_SearchValue.SetWindowTextW(value);
 	}
 }
 
@@ -246,7 +265,10 @@ void class2::OnBnClickedButton12()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_ThreasholdValue.SetWindowTextW(centerx.value);
+		centerx.classvalue.threashold=_ttoi(centerx.value);
+		CString value;
+		value.Format( _T("%d"), centerx.classvalue.threashold);
+		m_ThreasholdValue.SetWindowTextW(value);
 	}
 }
 
@@ -257,7 +279,10 @@ void class2::OnBnClickedButton13()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_ThreasholdValue.SetWindowTextW(centerx.value);
+		centerx.classvalue.threashold=_ttoi(centerx.value);
+		CString value;
+		value.Format( _T("%d"), centerx.classvalue.threashold);
+		m_ThreasholdValue.SetWindowTextW(value);
 	}
 }
 
@@ -267,7 +292,10 @@ void class2::OnBnClickedButton14()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_HalfPixelValue.SetWindowTextW(centerx.value);
+		centerx.classvalue.halfpixel=_ttoi(centerx.value);
+		CString value;
+		value.Format( _T("%d"), centerx.classvalue.halfpixel);
+		m_HalfPixelValue.SetWindowTextW(value);
 	}
 }
 
@@ -277,7 +305,10 @@ void class2::OnBnClickedButton15()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_HalfPixelValue.SetWindowTextW(centerx.value);
+		centerx.classvalue.halfpixel=_ttoi(centerx.value);
+		CString value;
+		value.Format( _T("%d"), centerx.classvalue.halfpixel);
+		m_HalfPixelValue.SetWindowTextW(value);
 	}
 }
 
@@ -287,7 +318,10 @@ void class2::OnBnClickedButton16()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_IgnoreValue.SetWindowTextW(centerx.value);
+		centerx.classvalue.ignore=_ttoi(centerx.value);
+		CString value;
+		value.Format( _T("%d"), centerx.classvalue.ignore);
+		m_IgnoreValue.SetWindowTextW(value);
 	}
 }
 
@@ -297,7 +331,10 @@ void class2::OnBnClickedButton17()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 			CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
-		m_IgnoreValue.SetWindowTextW(centerx.value);
+		centerx.classvalue.ignore=_ttoi(centerx.value);
+		CString value;
+		value.Format( _T("%d"), centerx.classvalue.ignore);
+		m_IgnoreValue.SetWindowTextW(value);
 	}
 }
 
