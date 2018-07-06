@@ -11,7 +11,7 @@
 
 IMPLEMENT_DYNAMIC(class2, CDialogEx)
 
-class2::class2(CWnd* pParent /*=NULL*/)
+	class2::class2(CWnd* pParent /*=NULL*/)
 	: CDialogEx(class2::IDD, pParent)
 {
 
@@ -40,7 +40,7 @@ void class2::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON15, m_HalfPixelValue);
 	DDX_Control(pDX, IDC_BUTTON16, m_Ignore);
 	DDX_Control(pDX, IDC_BUTTON17, m_IgnoreValue);
-	
+
 }
 
 
@@ -81,16 +81,16 @@ void class2::On_WindPosACL()
 	int nWidth = (rctClient.Width() + 1) / 4 - 1;
 	int nHeight = (rctClient.Height() + 1 ) / 5 - 1;
 
-	
+
 	rctSub.right = rctSub.left+(nWidth*3)+2;
 	rctSub.bottom = rctSub.top + nHeight;
 	m_FindLine.SetWindowPos(rctSub);
-	
+
 	rctSub.top = rctSub.bottom + 1;
 	rctSub.bottom = rctSub.top + nHeight;
 	rctSub.right = rctSub.left+nWidth;
 	m_Calipers.SetWindowPos(rctSub);
-	
+
 	rctSub.left = rctSub.right + 1;
 	rctSub.right = rctSub.left+nWidth;
 	m_CalipersValue.SetWindowPos(rctSub);
@@ -173,18 +173,18 @@ void class2::OnBnClickedButton11()
 	dlg.m_nValue = 3;
 	if (dlg.DoModal() == IDOK) {
 		switch(	dlg.m_nValue) {
-			case 1: m_DarkToLight.SetWindowTextW(_T("Don't Care"));	break;
-			case 2: m_DarkToLight.SetWindowTextW(_T("Dark to Light")); break;
-			case 3: m_DarkToLight.SetWindowTextW(_T("Light to Dark")); break;
+		case 1: m_DarkToLight.SetWindowTextW(_T("Don't Care"));	break;
+		case 2: m_DarkToLight.SetWindowTextW(_T("Dark to Light")); break;
+		case 3: m_DarkToLight.SetWindowTextW(_T("Light to Dark")); break;
 		}
-		
+
 	}
 }
 
 void class2::OnBnClickedButton4()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-		CenterX centerx;
+	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
 		centerx.classvalue.calipers=_ttoi(centerx.value);
 		CString value;
@@ -203,7 +203,7 @@ void class2::OnBnClickedButton5()
 		CString value;
 		value.Format( _T("%d"), centerx.classvalue.calipers);
 		m_CalipersValue.SetWindowTextW(value);
-		
+
 	}
 }
 
@@ -211,7 +211,7 @@ void class2::OnBnClickedButton5()
 void class2::OnBnClickedButton6()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-		CenterX centerx;
+	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
 		centerx.classvalue.projection=_ttoi(centerx.value);
 		CString value;
@@ -224,7 +224,7 @@ void class2::OnBnClickedButton6()
 void class2::OnBnClickedButton7()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-		CenterX centerx;
+	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
 		centerx.classvalue.projection=_ttoi(centerx.value);
 		CString value;
@@ -237,7 +237,7 @@ void class2::OnBnClickedButton7()
 void class2::OnBnClickedButton8()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-		CenterX centerx;
+	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
 		centerx.classvalue.search=_ttoi(centerx.value);
 		CString value;
@@ -303,7 +303,7 @@ void class2::OnBnClickedButton14()
 void class2::OnBnClickedButton15()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-		CenterX centerx;
+	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
 		centerx.classvalue.halfpixel=_ttoi(centerx.value);
 		CString value;
@@ -316,7 +316,7 @@ void class2::OnBnClickedButton15()
 void class2::OnBnClickedButton16()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-		CenterX centerx;
+	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
 		centerx.classvalue.ignore=_ttoi(centerx.value);
 		CString value;
@@ -329,7 +329,7 @@ void class2::OnBnClickedButton16()
 void class2::OnBnClickedButton17()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-			CenterX centerx;
+	CenterX centerx;
 	if (centerx.DoModal() == IDOK) {
 		centerx.classvalue.ignore=_ttoi(centerx.value);
 		CString value;
@@ -346,10 +346,10 @@ void class2::OnBnClickedButton10()
 	dlg.m_nValue = 3;
 	if (dlg.DoModal() == IDOK) {
 		switch(	dlg.m_nValue) {
-			case 1: m_DarkToLight.SetWindowTextW(_T("Don't Care"));	break;
-			case 2: m_DarkToLight.SetWindowTextW(_T("Dark to Light")); break;
-			case 3: m_DarkToLight.SetWindowTextW(_T("Light to Dark")); break;
+		case 1: m_DarkToLight.SetWindowTextW(_T("Don't Care"));	break;
+		case 2: m_DarkToLight.SetWindowTextW(_T("Dark to Light")); break;
+		case 3: m_DarkToLight.SetWindowTextW(_T("Light to Dark")); break;
 		}
-		
+
 	}
 }
