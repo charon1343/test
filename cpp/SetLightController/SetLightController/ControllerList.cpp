@@ -15,6 +15,8 @@ ControllerList::ControllerList(CWnd* pParent /*=NULL*/)
 	: CDialogEx(ControllerList::IDD, pParent)
 {
 
+	m_nCurHeight = 0;
+	m_nScrollPos = 0;
 }
 
 ControllerList::~ControllerList()
@@ -239,6 +241,7 @@ BEGIN_MESSAGE_MAP(ControllerList, CDialogEx)
 	ON_BN_CLICKED(IDC_LightMax20, &ControllerList::OnBnClickedLightmax20)
 	ON_BN_CLICKED(IDC_LightTest20, &ControllerList::OnBnClickedLighttest20)
 	ON_WM_WINDOWPOSCHANGED()
+	ON_WM_VSCROLL()
 	END_MESSAGE_MAP()
 
 
@@ -888,6 +891,9 @@ BOOL ControllerList::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
+	GetClientRect(m_rect); 
+	m_nScrollPos = 0;
+
 	On_WindBottomPos();
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
@@ -1387,4 +1393,47 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.left = rctTab.right;
 	rctTab.right = rctTab.left + nWidth;
 	m_lightTest20.SetWindowPos(rctTab);
+}
+
+void ControllerList::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	CDialogEx::OnVScroll(nSBCode, nPos, pScrollBar);
+
+	int nDelta; 
+	int nMaxPos = m_rect.Height() - m_nCurHeight;
+	switch (nSBCode) 
+	{
+	case SB_LINEDOWN:
+		if (m_nScrollPos >= nMaxPos) 
+			return; 
+		nDelta = min(nMaxPos/100,nMaxPos-m_nScrollPos); 
+		break;
+	case SB_LINEUP:
+		if (m_nScrollPos <= 0) 
+			return;
+		nDelta = -min(nMaxPos/100,m_nScrollPos); 
+		break;
+	case SB_PAGEDOWN:
+		if (m_nScrollPos >= nMaxPos) 
+			return; 
+
+	case SB_PAGEUP: 
+		if (m_nScrollPos <= 0) 
+			return; 
+		nDelta = min(nMaxPos/10,nMaxPos-m_nScrollPos); 
+		break;
+	case SB_THUMBPOSITION: 
+		nDelta = (int)nPos - m_nScrollPos; 
+		break;
+		nDelta = -min(nMaxPos/10,m_nScrollPos);
+		break; 
+	default: 
+		return; 
+	}
+	m_nScrollPos += nDelta; 
+	SetScrollPos(SB_VERT,m_nScrollPos,TRUE); 
+	ScrollWindow(0,-nDelta); 
+	CDialog::OnVScroll(nSBCode, nPos, pScrollBar);
 }

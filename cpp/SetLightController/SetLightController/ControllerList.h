@@ -232,4 +232,9 @@ public:
 	afx_msg void OnWindowPosChanged(WINDOWPOS* lpwndpos);
 	void On_WindBottomPos(void);
 	virtual BOOL OnInitDialog();
+	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+protected:
+	int m_nCurHeight;
+	int m_nScrollPos;
+	CRect m_rect;
 };
