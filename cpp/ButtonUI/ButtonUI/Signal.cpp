@@ -65,8 +65,6 @@ void Signal::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SignalTitleType, m_signalTitleType);
 	DDX_Control(pDX, IDC_SignalTitleValue, m_signalTitleValue);
 	DDX_Control(pDX, IDC_SignalType1, m_signalType1);
-	//  DDX_Control(pDX, IDC_SignalType10, m_signalType2);
-	//  DDX_Control(pDX, IDC_SignalType2, m_signalType3);
 	DDX_Control(pDX, IDC_SignalType10, m_signalType10);
 	DDX_Control(pDX, IDC_SignalType2, m_signalType2);
 	DDX_Control(pDX, IDC_SignalType3, m_signalType3);

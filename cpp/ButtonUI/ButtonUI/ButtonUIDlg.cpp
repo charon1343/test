@@ -218,16 +218,37 @@ void CButtonUIDlg::On_InitTextLeft(void)
 	m_dlgBottomLeft.m_signalName4.SetWindowTextW(_T("End"));
 	m_dlgBottomLeft.m_signalName5.SetWindowTextW(_T("Model"));
 	m_dlgBottomLeft.m_signalName6.SetWindowTextW(_T("Inspect Item"));
+
 	m_dlgBottomLeft.m_signalName7.SetWindowTextW(_T(""));
 	m_dlgBottomLeft.m_signalName8.SetWindowTextW(_T(""));
 	m_dlgBottomLeft.m_signalName9.SetWindowTextW(_T(""));
 	m_dlgBottomLeft.m_signalName10.SetWindowTextW(_T(""));
+	
+	m_dlgBottomLeft.m_signalName7.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalOffset7.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalType7.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalBit7.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalValue7.EnableWindow(FALSE);
+
+	m_dlgBottomLeft.m_signalName8.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalOffset8.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalType8.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalBit8.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalValue8.EnableWindow(FALSE);
+
+	m_dlgBottomLeft.m_signalName9.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalOffset9.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalType9.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalBit9.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalValue9.EnableWindow(FALSE);
+
+	m_dlgBottomLeft.m_signalName10.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalOffset10.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalType10.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalBit10.EnableWindow(FALSE);
+	m_dlgBottomLeft.m_signalValue10.EnableWindow(FALSE);
+	
 }
-
-
-
-
-
 void CButtonUIDlg::On_InitTextRight(void)
 {
 	m_dlgBottomRight.m_signalDestination.SetWindowTextW(_T("PC(Vision) -> PLC(Robot)"));
@@ -250,4 +271,3 @@ void CButtonUIDlg::On_InitTextRight(void)
 	m_dlgBottomRight.m_signalName9.SetWindowTextW(_T("Model"));
 	m_dlgBottomRight.m_signalName10.SetWindowTextW(_T("Inspect Item"));
 }
-
