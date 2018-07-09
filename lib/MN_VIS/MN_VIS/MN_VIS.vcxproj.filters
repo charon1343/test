@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="PLC">
+      <UniqueIdentifier>{9732b5bb-9df2-46a1-b729-f1f55fa59576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vision">
+      <UniqueIdentifier>{208171d2-8c31-4232-a2ad-dba3c39eba65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LightControl">
+      <UniqueIdentifier>{16d8eb88-59c3-4588-9b87-49498f175290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{8b98fdfb-485c-4a13-b1f3-d48d5f091475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MFC">
+      <UniqueIdentifier>{6f860625-f71f-4986-a9f5-ff8c63208706}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\MN_VIS.rc2">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="res\MN_VIS.ico">
+      <Filter>리소스 파일</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MN_VIS.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MN_VISDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_FrmFooter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_FrmHeader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_FrmMain.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_HDMenu.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_MAView.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_SDRun.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_MsgLoading.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_Setting.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_MAIOMap.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\MNVIni.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="LightControl\CMNV_LFineControl.h">
+      <Filter>LightControl</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_PADNumeric.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_MALight.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_MAPLC.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_PADRS232Setting.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\CamInfo.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\MNVDisplay.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\Define_Cog.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_SDVision.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CtrlLight20.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PLC\MNVDevice_YokogawaDirect.h">
+      <Filter>PLC</Filter>
+    </ClInclude>
+    <ClInclude Include="PLC\MNVProtocol_Yokogawa.h">
+      <Filter>PLC</Filter>
+    </ClInclude>
+    <ClInclude Include="PLC\MNVSocket.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="MFC\CMNVDialogEx.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="MFC\MNVParser.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="MFC\MNVDevice.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="MFC\MNVButton.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="MFC\MNVListCtrl.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_SDManual.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MNVAlgorithm.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_SDModel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CtrlCamera.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CtrlModel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CtrlPattern.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\MNVCaliper.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\Algorithm_PolarUnwrapCaliper.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\Image_PolarUnwrap.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="MNVPLC.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CtrlLight2Ch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\MNVImage.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\Algorithm_AffineTransformCaliper.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\Image_AffineTransform.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\MNV_FindLine.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\MNVLock.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\MNVEvent.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\MNVLabel.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CtrlAlign_CircleLine.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CtrlBlobSetting.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CtrlRegion_FindCircular.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CtrlBlob_Ignore.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CtrlAlgorithm.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_CtrlBlob_Check.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MNV\MNVRectangleAffine.h">
+      <Filter>Vision</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg_Popup_Selector.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MN_VIS.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MN_VISDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_FrmFooter.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_FrmHeader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_FrmMain.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_HDMenu.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_MAView.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_SDRun.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_MsgLoading.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_Setting.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_MAIOMap.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MNV\MNVIni.cpp">
+      <Filter>Vision</Filter>
+    </ClCompile>
+    <ClCompile Include="LightControl\CMNV_LFineControl.cpp">
+      <Filter>LightControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_PADNumeric.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_MALight.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_MAPLC.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_PADRS232Setting.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MNV\CamInfo.cpp">
+      <Filter>Vision</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_SDVision.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CtrlLight20.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MFC\CMNVDialogEx.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_SDManual.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MNVAlgorithm.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_SDModel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CtrlCamera.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CtrlModel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CtrlPattern.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MNV\MNVHistogram.cpp">
+      <Filter>Vision</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CtrlLight2Ch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CtrlAlign_CircleLine.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CtrlBlobSetting.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CtrlRegion_FindCircular.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CtrlBlob_Ignore.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CtrlAlgorithm.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_CtrlBlob_Check.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg_Popup_Selector.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MN_VIS.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
