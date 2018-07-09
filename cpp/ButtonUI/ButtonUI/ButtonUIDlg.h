@@ -1,7 +1,8 @@
 
 // ButtonUIDlg.h : 헤더 파일
 //
-
+#include "TcpIpNum.h"
+#include "Signal.h"
 #pragma once
 
 
@@ -11,6 +12,10 @@ class CButtonUIDlg : public CDialogEx
 // 생성입니다.
 public:
 	CButtonUIDlg(CWnd* pParent = NULL);	// 표준 생성자입니다.
+	TcpIpNum m_dlgTop;
+	Signal m_dlgBottomLeft;
+	Signal m_dlgBottomRight;
+	
 
 // 대화 상자 데이터입니다.
 	enum { IDD = IDD_BUTTONUI_DIALOG };
@@ -29,4 +34,9 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	void On_WindPos(void);
+	afx_msg void OnWindowPosChanged(WINDOWPOS* lpwndpos);
+	void On_InitTextLeft(void);
+	void On_InitTextRight(void);
 };

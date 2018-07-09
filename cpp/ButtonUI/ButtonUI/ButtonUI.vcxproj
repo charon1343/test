@@ -101,17 +101,22 @@
   <ItemGroup>
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="ButtonUIDlg.h" />
+    <ClInclude Include="MNVButton.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Signal.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TcpIpNum.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="ButtonUIDlg.cpp" />
+    <ClCompile Include="Signal.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TcpIpNum.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ButtonUI.rc" />
@@ -119,4 +124,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="ButtonUI.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

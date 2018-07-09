@@ -555,7 +555,9 @@ void Signal::On_WindBottomPos(void)
 	rctTab.right = rctTab.left+nWidth*3+1;
 	m_signalSizeValue.SetWindowPos(rctTab);
 
-	rctTab.top = rctTab.bottom + 1;
+
+
+	rctTab.top = rctTab.bottom + 10;
 	rctTab.bottom = rctTab.top + nHeight;
 	rctTab.left = rctBottom.left;
 	rctTab.right = rctTab.left+nWidth;
@@ -821,3 +823,4 @@ void Signal::OnWindowPosChanged(WINDOWPOS* lpwndpos)
 	if ((lpwndpos->flags & SWP_NOSIZE) == 0) { On_WindBottomPos();}
 
 }
+

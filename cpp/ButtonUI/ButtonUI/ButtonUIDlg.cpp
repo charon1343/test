@@ -1,4 +1,3 @@
-
 // ButtonUIDlg.cpp : 구현 파일
 //
 
@@ -10,6 +9,7 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+
 
 
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
@@ -28,6 +28,9 @@ public:
 // 구현입니다.
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+//	void On_WindPos(void);
+//	void On_WindPos(void);
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
@@ -63,6 +66,7 @@ BEGIN_MESSAGE_MAP(CButtonUIDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_WINDOWPOSCHANGED()
 END_MESSAGE_MAP()
 
 
@@ -98,7 +102,23 @@ BOOL CButtonUIDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
+	
+	m_dlgTop.Create(m_dlgTop.IDD,this);
+	m_dlgBottomLeft.Create(m_dlgBottomLeft.IDD,this);
+	m_dlgBottomRight.Create(m_dlgBottomRight.IDD,this);
 
+
+	m_dlgTop.ShowWindow(SW_SHOW);
+	m_dlgBottomLeft.ShowWindow(SW_SHOW);
+	m_dlgBottomRight.ShowWindow(SW_SHOW);
+
+	On_WindPos();
+	On_InitTextLeft();
+	On_InitTextRight();
+	
+	
+
+	
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
 
@@ -149,5 +169,85 @@ void CButtonUIDlg::OnPaint()
 HCURSOR CButtonUIDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
+}
+
+
+
+
+void CButtonUIDlg::On_WindPos(void)
+{
+	CRect rctClient;
+	GetClientRect(&rctClient);
+
+	CRect rctTab = rctClient;
+	rctTab.bottom = rctTab.top + 70;
+	CRect rctSub = rctClient;
+	rctSub.top = rctTab.bottom + 1;
+
+	m_dlgTop.SetWindowPos(NULL, rctTab.left, rctTab.top, rctTab.Width(), rctTab.Height() ,SWP_NOZORDER);
+	m_dlgBottomLeft.SetWindowPos(NULL, rctSub.left, rctSub.top, rctSub.Width()/2, rctSub.Height() ,SWP_NOZORDER);
+	m_dlgBottomRight.SetWindowPos(NULL, rctSub.Width()/2+rctSub.left, rctSub.top, rctSub.Width()/2, rctSub.Height() ,SWP_NOZORDER);
+}
+
+
+
+void CButtonUIDlg::OnWindowPosChanged(WINDOWPOS* lpwndpos)
+{
+	CDialogEx::OnWindowPosChanged(lpwndpos);
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	if ((lpwndpos->flags & SWP_NOSIZE) == 0) { On_WindPos();}
+
+}
+
+
+void CButtonUIDlg::On_InitTextLeft(void)
+{
+	m_dlgBottomLeft.m_signalDestination.SetWindowTextW(_T("PLC(Robot) -> PC(Vision)"));
+	m_dlgBottomLeft.m_signalSegment.SetWindowTextW(_T("Segment"));
+	m_dlgBottomLeft.m_signalSegmentValue.SetWindowTextW(_T(""));
+	m_dlgBottomLeft.m_signalSize.SetWindowTextW(_T("Size"));
+	m_dlgBottomLeft.m_signalSizeValue.SetWindowTextW(_T(""));
+	m_dlgBottomLeft.m_signalTitleName.SetWindowTextW(_T("Name"));
+	m_dlgBottomLeft.m_signalTitleOffset.SetWindowTextW(_T("Offset"));
+	m_dlgBottomLeft.m_signalTitleType.SetWindowTextW(_T("Type"));
+	m_dlgBottomLeft.m_signalTitleBit.SetWindowTextW(_T("Bit"));
+	m_dlgBottomLeft.m_signalName1.SetWindowTextW(_T("Prepare"));
+	m_dlgBottomLeft.m_signalName2.SetWindowTextW(_T("Triger"));
+	m_dlgBottomLeft.m_signalName3.SetWindowTextW(_T("Finish"));
+	m_dlgBottomLeft.m_signalName4.SetWindowTextW(_T("End"));
+	m_dlgBottomLeft.m_signalName5.SetWindowTextW(_T("Model"));
+	m_dlgBottomLeft.m_signalName6.SetWindowTextW(_T("Inspect Item"));
+	m_dlgBottomLeft.m_signalName7.SetWindowTextW(_T(""));
+	m_dlgBottomLeft.m_signalName8.SetWindowTextW(_T(""));
+	m_dlgBottomLeft.m_signalName9.SetWindowTextW(_T(""));
+	m_dlgBottomLeft.m_signalName10.SetWindowTextW(_T(""));
+}
+
+
+
+
+
+void CButtonUIDlg::On_InitTextRight(void)
+{
+	m_dlgBottomRight.m_signalDestination.SetWindowTextW(_T("PC(Vision) -> PLC(Robot)"));
+	m_dlgBottomRight.m_signalSegment.SetWindowTextW(_T("Segment"));
+	m_dlgBottomRight.m_signalSegmentValue.SetWindowTextW(_T(""));
+	m_dlgBottomRight.m_signalSize.SetWindowTextW(_T("Size"));
+	m_dlgBottomRight.m_signalSizeValue.SetWindowTextW(_T(""));
+	m_dlgBottomRight.m_signalTitleName.SetWindowTextW(_T("Name"));
+	m_dlgBottomRight.m_signalTitleOffset.SetWindowTextW(_T("Offset"));
+	m_dlgBottomRight.m_signalTitleType.SetWindowTextW(_T("Type"));
+	m_dlgBottomRight.m_signalTitleBit.SetWindowTextW(_T("Bit"));
+	m_dlgBottomRight.m_signalName1.SetWindowTextW(_T("Wait"));
+	m_dlgBottomRight.m_signalName2.SetWindowTextW(_T("Ready"));
+	m_dlgBottomRight.m_signalName3.SetWindowTextW(_T("Grab"));
+	m_dlgBottomRight.m_signalName4.SetWindowTextW(_T("Inspect"));
+	m_dlgBottomRight.m_signalName5.SetWindowTextW(_T("Result"));
+	m_dlgBottomRight.m_signalName6.SetWindowTextW(_T("OK"));
+	m_dlgBottomRight.m_signalName7.SetWindowTextW(_T("NG"));
+	m_dlgBottomRight.m_signalName8.SetWindowTextW(_T("Alarm"));
+	m_dlgBottomRight.m_signalName9.SetWindowTextW(_T("Model"));
+	m_dlgBottomRight.m_signalName10.SetWindowTextW(_T("Inspect Item"));
 }
 
