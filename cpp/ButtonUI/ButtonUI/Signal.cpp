@@ -533,7 +533,7 @@ void Signal::On_WindBottomPos(void)
 	int nHeight = (rctBottom.Height() + 1) / 15;
 
 	rctTab.bottom = rctBottom.top+nHeight;
-	rctTab.right = rctBottom.left+nWidth*5;
+	rctTab.right = rctBottom.left+nWidth*5+4;
 	m_signalDestination.SetWindowPos(rctTab);
 
 	rctTab.top = rctTab.bottom + 1;
