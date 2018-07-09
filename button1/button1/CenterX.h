@@ -48,4 +48,5 @@ public:
 
 	CalssValue classvalue;
 
+	afx_msg void OnBnClickedButton13();
 };

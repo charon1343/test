@@ -29,22 +29,10 @@ public:
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
-//	int calipersValue;
-//	int projectionValue;
-//	int searchValue;
-//	int threasholdValue;
-//	int halfPixelValue;
-//	int ignoreValue;
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
 {
-	//  calipersValue = 0;
-	//  projectionValue = 0;
-	//  searchValue = 0;
-	//  threasholdValue = 0;
-	//  halfPixelValue = 0;
-	//  ignoreValue = 0;
 }
 
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)

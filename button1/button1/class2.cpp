@@ -78,6 +78,7 @@ void class2::On_WindPosACL()
 	CRect rctSub = rctClient;
 	rctSub.top = rctClient.top + 1;
 
+
 	int nWidth = (rctClient.Width() + 1) / 4 - 1;
 	int nHeight = (rctClient.Height() + 1 ) / 5 - 1;
 
@@ -85,6 +86,7 @@ void class2::On_WindPosACL()
 	rctSub.right = rctSub.left+(nWidth*3)+2;
 	rctSub.bottom = rctSub.top + nHeight;
 	m_FindLine.SetWindowPos(rctSub);
+
 
 	rctSub.top = rctSub.bottom + 1;
 	rctSub.bottom = rctSub.top + nHeight;

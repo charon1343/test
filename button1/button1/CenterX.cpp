@@ -52,6 +52,7 @@ BEGIN_MESSAGE_MAP(CenterX, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON10, &CenterX::OnBnClickedButton10)
 	ON_BN_CLICKED(IDC_BUTTON11, &CenterX::OnBnClickedButton11)
 	ON_BN_CLICKED(IDC_BUTTON18, &CenterX::OnBnClickedButton18)
+	ON_BN_CLICKED(IDC_BUTTON13, &CenterX::OnBnClickedButton13)
 END_MESSAGE_MAP()
 
 
@@ -145,4 +146,10 @@ void CenterX::OnBnClickedButton18()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	value.Append(_T("0"));
 	m_edit.SetWindowTextW(value);
+}
+
+
+void CenterX::OnBnClickedButton13()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
