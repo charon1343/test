@@ -242,6 +242,7 @@ BEGIN_MESSAGE_MAP(ControllerList, CDialogEx)
 	ON_BN_CLICKED(IDC_LightTest20, &ControllerList::OnBnClickedLighttest20)
 	ON_WM_WINDOWPOSCHANGED()
 	ON_WM_VSCROLL()
+	ON_WM_SIZE()
 	END_MESSAGE_MAP()
 
 
@@ -876,13 +877,14 @@ void ControllerList::OnBnClickedLighttest20()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
-
+	
 
 void ControllerList::OnWindowPosChanged(WINDOWPOS* lpwndpos)
 {
 	CDialogEx::OnWindowPosChanged(lpwndpos);
 
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	m_nScrollPos = 0;
 	if ((lpwndpos->flags & SWP_NOSIZE) == 0) { On_WindBottomPos();}
 }
 
@@ -915,11 +917,11 @@ void ControllerList::On_WindBottomPos(void)
 	int nHeight = 40;
 	
 	rctTab.bottom = rctBottom.top+nHeight;
-	rctTab.right = rctBottom.left+nWidth;
+	rctTab.right = rctBottom.left+nWidth/2;
 	m_lightTitleNo.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightTitleName.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -938,11 +940,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo1.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName1.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -961,11 +963,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo2.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName2.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -984,11 +986,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo3.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName3.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1007,11 +1009,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo4.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName4.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1030,11 +1032,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo5.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName5.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1053,11 +1055,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo6.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName6.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1076,11 +1078,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo7.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName7.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1099,11 +1101,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo8.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName8.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1122,11 +1124,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo9.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName9.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1145,11 +1147,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo10.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName10.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1168,11 +1170,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo11.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName11.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1191,11 +1193,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo12.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName12.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1214,11 +1216,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo13.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName13.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1237,11 +1239,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo14.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName14.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1260,11 +1262,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo15.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName15.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1283,11 +1285,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo16.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName16.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1306,11 +1308,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo17.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName17.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1329,11 +1331,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo18.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName18.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1352,11 +1354,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo19.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName19.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1375,11 +1377,11 @@ void ControllerList::On_WindBottomPos(void)
 	rctTab.top = rctTab.bottom;
 	rctTab.bottom = rctTab.top+nHeight;
 	rctTab.left = rctBottom.left;
-	rctTab.right = rctTab.left+nWidth;
+	rctTab.right = rctTab.left+nWidth/2;
 	m_lightNo20.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
-	rctTab.right = rctTab.left + nWidth;
+	rctTab.right = rctTab.left + nWidth*1.5;
 	m_lightName20.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right;
@@ -1408,12 +1410,12 @@ void ControllerList::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	case SB_LINEDOWN:
 		if (m_nScrollPos >= nMaxPos) 
 			return; 
-		nDelta = min(nMaxPos/100,nMaxPos-m_nScrollPos); 
+		nDelta = min(nMaxPos/10,nMaxPos-m_nScrollPos); 
 		break;
 	case SB_LINEUP:
 		if (m_nScrollPos <= 0) 
 			return;
-		nDelta = -min(nMaxPos/100,m_nScrollPos); 
+		nDelta = -min(nMaxPos/10,m_nScrollPos); 
 		break;
 	case SB_PAGEDOWN:
 		if (m_nScrollPos >= nMaxPos) 
@@ -1436,4 +1438,25 @@ void ControllerList::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	SetScrollPos(SB_VERT,m_nScrollPos,TRUE); 
 	ScrollWindow(0,-nDelta); 
 	CDialog::OnVScroll(nSBCode, nPos, pScrollBar);
+}
+
+
+void ControllerList::OnSize(UINT nType, int cx, int cy)
+{
+	CDialogEx::OnSize(nType, cx, cy);
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+		m_nCurHeight = cy; 
+	int nScrollMax; 
+	if (cy < m_rect.Height()) 
+	{ nScrollMax = m_rect.Height() - cy; } 
+	else nScrollMax = 0; 
+	SCROLLINFO si; si.cbSize = sizeof(SCROLLINFO); 
+	si.fMask = SIF_ALL; 
+	// SIF_ALL = SIF_PAGE | SIF_RANGE | SIF_POS; 
+	si.nMin = 0; 
+	si.nMax = nScrollMax; 
+	si.nPage = si.nMax/10; 
+	si.nPos = 0; 
+	SetScrollInfo(SB_VERT, &si, TRUE); 
 }

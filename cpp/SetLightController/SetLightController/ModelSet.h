@@ -38,7 +38,7 @@ public:
 	CMNVButton m_modelComPort;
 	CMNVButton m_modelComPortValue;
 	CMNVButton m_modelDataBits;
-	CMNVButton m_ModelDataBitsValue;
+	CMNVButton m_modelDataBitsValue;
 	CMNVButton m_modelName;
 	CMNVButton m_modelNameValue;
 	CMNVButton m_modelParity;

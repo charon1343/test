@@ -36,4 +36,6 @@ protected:
 public:
 	void On_WindPos(void);
 	afx_msg void OnWindowPosChanged(WINDOWPOS* lpwndpos);
+	void On_InitTextTop(void);
+	void On_InitTextBottom(void);
 };

@@ -237,4 +237,6 @@ protected:
 	int m_nCurHeight;
 	int m_nScrollPos;
 	CRect m_rect;
+public:
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 };

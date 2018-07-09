@@ -30,7 +30,7 @@ void ModelSet::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_ModelComPort, m_modelComPort);
 	DDX_Control(pDX, IDC_ModelComPortValue, m_modelComPortValue);
 	DDX_Control(pDX, IDC_ModelDataBits, m_modelDataBits);
-	DDX_Control(pDX, IDC_ModelDataBitsValue, m_ModelDataBitsValue);
+	//  DDX_Control(pDX, IDC_ModelDataBitsValue, m_ModelDataBitsValue);
 	DDX_Control(pDX, IDC_ModelName, m_modelName);
 	DDX_Control(pDX, IDC_ModelNameValue, m_modelNameValue);
 	DDX_Control(pDX, IDC_ModelParity, m_modelParity);
@@ -41,6 +41,7 @@ void ModelSet::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LightChannelValue, m_lightChannelValue);
 	DDX_Control(pDX, IDC_LightMax, m_lightMax);
 	DDX_Control(pDX, IDC_LightMaxValue, m_lightMaxValue);
+	DDX_Control(pDX, IDC_ModelDataBitsValue, m_modelDataBitsValue);
 }
 
 
@@ -211,7 +212,7 @@ void ModelSet::On_WindTopPos(void)
 	m_modelName.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right + 1;
-	rctTab.right = rctTab.left + nWidth * 3;
+	rctTab.right = rctTab.left + nWidth * 3 + 2;
 	m_modelNameValue.SetWindowPos(rctTab);
 
 
@@ -225,7 +226,7 @@ void ModelSet::On_WindTopPos(void)
 	rctTab.right = rctTab.left + nWidth;
 	m_modelComPortValue.SetWindowPos(rctTab);
 
-	rctTab.left = rctTab.right + nWidth + 1;
+	rctTab.left = rctTab.right + nWidth + 2;
 	rctTab.right = rctTab.left + nWidth;
 	m_modelAuto.SetWindowPos(rctTab);
 
@@ -257,7 +258,7 @@ void ModelSet::On_WindTopPos(void)
 
 	rctTab.left = rctTab.right + 1;
 	rctTab.right = rctTab.left + nWidth;
-	m_ModelDataBitsValue.SetWindowPos(rctTab);
+	m_modelDataBitsValue.SetWindowPos(rctTab);
 
 	rctTab.left = rctTab.right + 1;
 	rctTab.right = rctTab.left + nWidth;
