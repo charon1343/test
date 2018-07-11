@@ -74,7 +74,7 @@ void TcpIpNum::OnBnClickedPortnumvalue()
 void TcpIpNum::OnBnClickedTcpipconnect()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	bool static connect=true;
+	bool static connect=true;	//??static쓰는것 보다 상위 변수로 올리는것이 더 좋을것 같은데 어떻게 사용하는 것입니까??
 	if(!connect)
 	{
 		m_tcpIpConnect.SetWindowTextW(_T("Connect"));
