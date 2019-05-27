@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C30A6A93-99A8-4C99-B1BC-545DC87A38A5}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>cpp_test</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ex197_1.cpp" />
+    <ClCompile Include="ex_01.cpp" />
+    <ClCompile Include="ex_02.cpp" />
+    <ClCompile Include="ex_03.cpp" />
+    <ClCompile Include="ex_04.cpp" />
+    <ClCompile Include="ex_05.cpp" />
+    <ClCompile Include="ex_06.cpp" />
+    <ClCompile Include="ex_07.cpp" />
+    <ClCompile Include="ex_08.cpp" />
+    <ClCompile Include="ex_09.cpp" />
+    <ClCompile Include="ex_10.cpp" />
+    <ClCompile Include="ex_106.cpp" />
+    <ClCompile Include="ex_11.cpp" />
+    <ClCompile Include="ex_110.cpp" />
+    <ClCompile Include="ex_111.cpp" />
+    <ClCompile Include="ex_113.cpp" />
+    <ClCompile Include="ex_12.cpp" />
+    <ClCompile Include="ex_121.cpp" />
+    <ClCompile Include="ex_122.cpp" />
+    <ClCompile Include="ex_126.cpp" />
+    <ClCompile Include="ex_127.cpp" />
+    <ClCompile Include="ex_128.cpp" />
+    <ClCompile Include="ex_13.cpp" />
+    <ClCompile Include="ex_130.cpp" />
+    <ClCompile Include="ex_14.cpp" />
+    <ClCompile Include="ex_142.cpp" />
+    <ClCompile Include="ex_15.cpp" />
+    <ClCompile Include="ex_151.cpp" />
+    <ClCompile Include="ex_16.cpp" />
+    <ClCompile Include="ex_164.cpp" />
+    <ClCompile Include="ex_165.cpp" />
+    <ClCompile Include="ex_166.cpp" />
+    <ClCompile Include="ex_167.cpp" />
+    <ClCompile Include="ex_168.cpp" />
+    <ClCompile Include="ex_169.cpp" />
+    <ClCompile Include="ex_17.cpp" />
+    <ClCompile Include="ex_170.cpp" />
+    <ClCompile Include="ex_171.cpp" />
+    <ClCompile Include="ex_172.cpp" />
+    <ClCompile Include="ex_173.cpp" />
+    <ClCompile Include="ex_174.cpp" />
+    <ClCompile Include="ex_175.cpp" />
+    <ClCompile Include="ex_176.cpp" />
+    <ClCompile Include="ex_177.cpp" />
+    <ClCompile Include="ex_178.cpp" />
+    <ClCompile Include="ex_179.cpp" />
+    <ClCompile Include="ex_18.cpp" />
+    <ClCompile Include="ex_180.cpp" />
+    <ClCompile Include="ex_181.cpp" />
+    <ClCompile Include="ex_182.cpp" />
+    <ClCompile Include="ex_183.cpp" />
+    <ClCompile Include="ex_184.cpp" />
+    <ClCompile Include="ex_185.cpp" />
+    <ClCompile Include="ex_186.cpp" />
+    <ClCompile Include="ex_187.cpp" />
+    <ClCompile Include="ex_188.cpp" />
+    <ClCompile Include="ex_19.cpp" />
+    <ClCompile Include="ex_190.cpp" />
+    <ClCompile Include="ex_197.cpp" />
+    <ClCompile Include="ex_20.cpp" />
+    <ClCompile Include="ex_21.cpp" />
+    <ClCompile Include="ex_22.cpp" />
+    <ClCompile Include="ex_23.cpp" />
+    <ClCompile Include="ex_24.cpp" />
+    <ClCompile Include="ex_44.cpp" />
+    <ClCompile Include="ex_47.cpp" />
+    <ClCompile Include="ex_51.cpp" />
+    <ClCompile Include="ex_52.cpp" />
+    <ClCompile Include="ex_55.cpp" />
+    <ClCompile Include="ex_59.cpp" />
+    <ClCompile Include="ex_66.cpp" />
+    <ClCompile Include="ex_88.cpp" />
+    <ClCompile Include="_union.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ex_179_1.h" />
+    <ClInclude Include="ex_15.h" />
+    <ClInclude Include="ex_164.h" />
+    <ClInclude Include="ex_166.h" />
+    <ClInclude Include="ex_167.h" />
+    <ClInclude Include="ex_168.h" />
+    <ClInclude Include="ex_169.h" />
+    <ClInclude Include="ex_170.h" />
+    <ClInclude Include="ex_171.h" />
+    <ClInclude Include="ex_172.h" />
+    <ClInclude Include="ex_179.h" />
+    <ClInclude Include="ex_179_2.h" />
+    <ClInclude Include="ex_179_3.h" />
+    <ClInclude Include="ex_184.h" />
+    <ClInclude Include="ex_185.h" />
+    <ClInclude Include="ex_185_1.h" />
+    <ClInclude Include="ex_188.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

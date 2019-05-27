@@ -1,0 +1,16 @@
+﻿1>------ 빌드 시작: 프로젝트: cpp_test, 구성: Debug Win32 ------
+1>빌드 시작: 2019-05-20 오후 5:09:39
+1>InitializeBuildStatus:
+1>  "Debug\cpp_test.unsuccessfulbuild"에 연결(touching)하고 있습니다.
+1>ClCompile:
+1>  ex_110.cpp
+1>c:\users\main\documents\visual studio 2010\projects\cpp_test\cpp_test\ex_110.cpp(17): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+1>          c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 'strcpy' 선언을 참조하십시오.
+1>ManifestResourceCompile:
+1>  모든 출력이 최신 상태입니다.
+1>LINK : fatal error LNK1168: C:\Users\main\documents\visual studio 2010\Projects\cpp_test\Debug\cpp_test.exe을(를) 쓰기용으로 열 수 없습니다.
+1>
+1>빌드하지 못했습니다.
+1>
+1>경과 시간: 00:00:00.64
+========== 빌드: 성공 0, 실패 1, 최신 0, 생략 0 ==========
