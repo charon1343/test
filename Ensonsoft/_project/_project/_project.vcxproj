@@ -74,6 +74,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="_strcmp.cpp" />
+    <ClCompile Include="_strcspn.cpp" />
     <ClCompile Include="_all.cpp" />
     <ClCompile Include="_strcat.cpp" />
     <ClCompile Include="_strchr.cpp" />

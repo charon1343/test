@@ -61,13 +61,6 @@
 //	c2 = strchr(c,c1);
 //	cout<<c2<<endl;
 //	
-//	/*char b[] = "abcde";
-//	char b1[] = "cd";
-//
-//	int b2 = strcspn(b,b1);
-//	cout<<b2<<endl;*/
-//	
-//
 //	cout<<"\n---------------strcat-------------"<<endl;
 //	strcat(z,a1);
 //	strncat(z,a2,1);

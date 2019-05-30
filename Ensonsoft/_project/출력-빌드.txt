@@ -1,0 +1,23 @@
+﻿1>------ 빌드 시작: 프로젝트: _project, 구성: Debug Win32 ------
+1>빌드 시작: 2019-05-30 오전 10:53:35
+1>InitializeBuildStatus:
+1>  "AlwaysCreate"이(가) 지정되었기 때문에 "Debug\_project.unsuccessfulbuild"을(를) 만들고 있습니다.
+1>ClCompile:
+1>  strcspn.cpp
+1>c:\users\main\documents\visual studio 2010\projects\_project\_project\strcspn.cpp(6): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+1>c:\users\main\documents\visual studio 2010\projects\_project\_project\strcspn.cpp(7): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+1>ManifestResourceCompile:
+1>  모든 출력이 최신 상태입니다.
+1>Manifest:
+1>  모든 출력이 최신 상태입니다.
+1>LinkEmbedManifest:
+1>  모든 출력이 최신 상태입니다.
+1>  _project.vcxproj -> C:\Users\main\Documents\Visual Studio 2010\Projects\_project\Debug\_project.exe
+1>FinalizeBuildStatus:
+1>  "Debug\_project.unsuccessfulbuild" 파일을 삭제하고 있습니다.
+1>  "Debug\_project.lastbuildstate"에 연결(touching)하고 있습니다.
+1>
+1>빌드했습니다.
+1>
+1>경과 시간: 00:00:00.83
+========== 빌드: 성공 1, 실패 0, 최신 0, 생략 0 ==========

@@ -27,6 +27,12 @@
     <ClCompile Include="_strchr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="_strcspn.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="_strcmp.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="_strcpy.h">
