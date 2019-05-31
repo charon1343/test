@@ -6,7 +6,7 @@ void ccopy(char** z,char** a){
 	*z = *a;
 }
 void cccopy(char* z,char* a){
-	z=a;
+	*z=*a;
 }
 void mystrcpy(char* _z,char* _a){
 	memset(_z,0,100);
