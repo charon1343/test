@@ -80,9 +80,17 @@
     <ClCompile Include="_strcat.cpp" />
     <ClCompile Include="_strchr.cpp" />
     <ClCompile Include="_strcpy.cpp" />
+    <ClCompile Include="_Y_strcpy_s.cpp" />
+    <ClCompile Include="_Y_strlen.cpp" />
+    <ClCompile Include="_strstr.cpp" />
+    <ClCompile Include="_strstr1.cpp" />
+    <ClCompile Include="_Y_strchr.cpp" />
+    <ClCompile Include="_Y_strcmp.cpp" />
+    <ClCompile Include="_Y_strncmp.cpp" />
+    <ClCompile Include="__strcat.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="_strcpy.h" />
+    <ClInclude Include="_Y.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

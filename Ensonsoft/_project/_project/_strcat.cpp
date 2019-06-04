@@ -4,7 +4,6 @@
 //	if(*z==0)
 //	{
 //	for(int i=0;i<strlen(a);i++,z++){
-//		*z+i;
 //		*z = *(a+i);
 //		}
 //		*z='\0';
@@ -14,7 +13,6 @@
 //		char* ma = a;
 //		mz = mz+strlen(mz);
 //		for(int i=0;i<strlen(a);i++,mz++){
-//		*mz+i;
 //		*mz = *(ma+i);
 //		}
 //		*mz='\0';
