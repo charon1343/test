@@ -82,7 +82,10 @@ char* Ystrcpy_s(char* a,int aSize,char* b)
 	int _aSize = aSize;
 
 	if(_aSize<Ystrlen(b))
+	{
+		cout<<"size error"<<endl;
 		return 0;
+	}
 	else
 	{
 		for(int i=0;i<_aSize;i++)
@@ -96,7 +99,7 @@ char* Ystrcpy_s(char* a,int aSize,char* b)
 			}
 			*_a='\0';
 		}
-
+		
 	}
 	return a;
 
@@ -104,12 +107,15 @@ char* Ystrcpy_s(char* a,int aSize,char* b)
 
 char* Ystrcat_s(char* a,int aSize,char* b)
 {
+	
 	char* _a = a;
 	char* _b = b;
 	int _aSize = aSize;
-
 	if(_aSize<(Ystrlen(a)+Ystrlen(b)))
+	{
+		printf("size error\n");
 		return 0;
+	}
 	else
 	{
 		for(int i=0;i<aSize;i++)
@@ -126,10 +132,11 @@ char* Ystrcat_s(char* a,int aSize,char* b)
 				_b++;
 				i++;
 			}
+			*_a='\0';
 		}
-		*_a='\0';
 		return a;
 	}
+	
 }
 char* Ystrncat_s(char* a,int aSize,char* b,int bSize)
 {
@@ -138,26 +145,57 @@ char* Ystrncat_s(char* a,int aSize,char* b,int bSize)
 	int _aSize = aSize;
 	int _bSize = bSize;
 
-	if(_aSize<(Ystrlen(a)+Ystrlen(b)))
+	if(_aSize<(Ystrlen(a)+bSize))
+	{
+		printf("size error\n");
 		return 0;
+	}
 	else
 	{
-		for(int i=0;i<Ystrlen(a)+Ystrlen(b);i++)
+		for(int i=0;i<Ystrlen(a)+bSize-1;i++)
 		{
 			while(*_a!='\0')
 			{
 				_a++;
 				i++;
 			}
-			for(int j=0;j<bSize;j++,i++)
+			for(int j=0;j<bSize&&*_b!='\0';j++,i++)
 			{
 				*_a=*_b;
 				_a++;
 				_b++;
 			}
-			
+			*_a='\0';	
 		}
-		*_a='\0';
 		return a;
+	}
+}
+char* Ystrstr(char* a,char* b)
+{
+	char* _a = a;
+	char* _b = b;
+
+	if(Ystrlen(a)<Ystrlen(b))
+	{
+		printf("size error\n");
+		return 0;
+	}
+	else
+	{
+		while(*_a!='\0')
+		{
+			while(*_a==*_b)
+			{
+				_a++;
+				_b++;
+				if(*_b=='\0')
+				{
+					_a-=Ystrlen(b);
+					return _a;
+				}
+			}
+			_b=b;
+		}
+		return 0;
 	}
 }
