@@ -1,0 +1,31 @@
+﻿빌드 시작: 2019-06-11 오후 6:11:48
+     1>2 노드의 "c:\Users\main\documents\visual studio 2010\Projects\_tapcontrol\_tapcontrol\_tapcontrol.vcxproj" 프로젝트(build 대상)입니다.
+     1>InitializeBuildStatus:
+         "AlwaysCreate"이(가) 지정되었기 때문에 "Debug\_tapcontrol.unsuccessfulbuild"을(를) 만들고 있습니다.
+       ClCompile:
+         모든 출력이 최신 상태입니다.
+         모든 출력이 최신 상태입니다.
+       ResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /D _DEBUG /D _AFXDLL /l"0x0412" /IDebug\ /nologo /fo"Debug\_tapcontrol.res" _tapcontrol.rc 
+       ManifestResourceCompile:
+         모든 출력이 최신 상태입니다.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"c:\users\main\documents\visual studio 2010\Projects\_tapcontrol\Debug\_tapcontrol.exe" /INCREMENTAL /NOLOGO /MANIFEST /ManifestFile:"Debug\_tapcontrol.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"c:\users\main\documents\visual studio 2010\Projects\_tapcontrol\Debug\_tapcontrol.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"c:\users\main\documents\visual studio 2010\Projects\_tapcontrol\Debug\_tapcontrol.lib" /MACHINE:X86 Debug\_tapcontrol.res
+         Debug\_tapcontrol.exe.embed.manifest.res
+         Debug\stdafx.obj
+         Debug\_tapcontrol.obj
+         Debug\_tapcontrolDlg.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\_tapcontrol.exe.embed.manifest" /manifest Debug\_tapcontrol.exe.intermediate.manifest "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\Include\Manifest\dpiaware.manifest"
+         모든 출력이 최신 상태입니다.
+       LinkEmbedManifest:
+         모든 출력이 최신 상태입니다.
+         _tapcontrol.vcxproj -> c:\users\main\documents\visual studio 2010\Projects\_tapcontrol\Debug\_tapcontrol.exe
+       FinalizeBuildStatus:
+         "Debug\_tapcontrol.unsuccessfulbuild" 파일을 삭제하고 있습니다.
+         "Debug\_tapcontrol.lastbuildstate"에 연결(touching)하고 있습니다.
+     1>"c:\Users\main\documents\visual studio 2010\Projects\_tapcontrol\_tapcontrol\_tapcontrol.vcxproj" 프로젝트를 빌드했습니다(build 대상).
+
+빌드했습니다.
+
+경과 시간: 00:00:00.25
